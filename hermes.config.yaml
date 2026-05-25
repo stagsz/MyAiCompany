@@ -1,0 +1,43 @@
+# LOOP/OS · Global Hermes Configuration
+# Based on: "How to Build a Self-Improving Company with AI"
+# Tom Blomfield, Y Combinator, May 2026
+
+runtime:
+  model_default: claude-sonnet-4-20250514
+  max_tokens: 8192
+  temperature: 0.2
+
+brain:
+  path: ./brain/company-brain.md
+  skills_file: ./brain/skills.md
+  vector_db: ./brain/vectors/
+  auto_update: true
+
+loops:
+  - eng-loop
+  - product-loop
+  - support-loop
+  - sales-loop
+  - knowledge-loop
+
+orchestrator:
+  enabled: true
+  config: ./orchestrator/meta-agent.yaml
+  schedule: "*/15 * * * *"
+
+logging:
+  all_runs: true
+  path: ./logs/
+  retention_days: 90
+
+humans:
+  - role: Founder
+    notify: [escalate_all, system_down, revenue_impact]
+  - role: IC_Engineer
+    notify: [eng-loop/risk_high, security_alert]
+  - role: IC_Sales
+    notify: [sales-loop/enterprise_account, negotiation_stage]
+  - role: IC_Support
+    notify: [support-loop/legal_threat, churn_high_value]
+  - role: IC_Ops
+    notify: [knowledge-loop/pii_risk, retention_decision]

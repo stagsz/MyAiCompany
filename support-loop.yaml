@@ -1,0 +1,69 @@
+# LOOP/OS · Customer Support Loop
+# "Ship the fix to the customer without a human being involved."
+# — Tom Blomfield, YC
+
+name: support-loop
+version: "1.0"
+model: claude-sonnet-4-20250514
+
+persona: |
+  You are the Customer Support Agent for LOOP/OS.
+  You triage issues, resolve what you can autonomously,
+  escalate high-stakes cases to the IC DRI, and flag
+  recurring bugs to the engineering loop. For standard
+  cases: zero humans involved. Resolve. Learn. Repeat.
+
+sensors:
+  - id: tickets
+    type: webhook
+    source: support_platform
+    events: [ticket_created, ticket_escalated]
+
+  - id: email_inbox
+    type: webhook
+    source: email_system
+    filter: customer_domain
+
+  - id: churn_risk
+    type: poll
+    source: crm
+    filter: "churn_risk > 0.7"
+    interval: 1h
+
+policy:
+  auto_respond: true
+  refund_authority_usd: 50
+  sla_first_response: 2h
+  tone: empathetic, direct, never corporate
+  escalate_to_human:
+    - legal_threats
+    - media_mentions
+    - enterprise_accounts
+    - "refund_requested > authority_limit"
+
+tools:
+  - crm_api
+  - email_send
+  - ticketing_api
+  - kb_writer
+  - code_generation
+  - deploy_pipeline
+
+quality_gate:
+  response_tone_check:
+    required: true
+  factual_accuracy:
+    required: true
+  resolution_confidence:
+    threshold: 0.85
+    fail_action: escalate_human
+
+learning:
+  on_novel_question:
+    - update_faq: true
+  on_resolution:
+    - update_playbook: true
+  on_recurring_bug:
+    - flag_to_eng_loop: true
+    - create_github_issue: true
+    - report_to_orchestrator: true

@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AuditFlow · PRD v2.0 — AI-Native ISO 9001:2015 Self-Assessment SaaS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#08090F; --bg2:#0D0F1A; --bg3:#111320; --border:#1E2235;
+  --teal:#0D9488; --teal-dim:#0A7169; --teal-glow:rgba(13,148,136,0.12);
+  --blue:#1E3A8A; --text:#E2E8F0; --text-dim:#94A3B8; --text-mute:#475569;
+  --red:#EF4444; --amber:#F59E0B; --green:#22C55E; --purple:#A855F7;
+  --serif:"DM Serif Display",Georgia,serif;
+  --mono:"JetBrains Mono","Courier New",monospace;
+  --body:"Libre Baskerville",Georgia,serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:14px;line-height:1.8;-webkit-font-smoothing:antialiased;}
+.page{max-width:960px;margin:0 auto;padding:0 40px 120px;}
+
+.cover{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:80px 40px;position:relative;overflow:hidden;border-bottom:1px solid var(--border);}
+.cover-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 20% 50%,rgba(13,148,136,0.07) 0%,transparent 70%),radial-gradient(ellipse 60% 80% at 80% 20%,rgba(30,58,138,0.09) 0%,transparent 70%),linear-gradient(180deg,#08090F 0%,#0D0F1A 100%);}
+.cover-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;opacity:.25;}
+.cover-content{position:relative;z-index:1;max-width:960px;margin:0 auto;width:100%;}
+.cover-tag{font-family:var(--mono);font-size:10px;letter-spacing:4px;color:var(--teal);margin-bottom:24px;display:flex;align-items:center;gap:16px;}
+.cover-tag::before{content:"";display:block;width:40px;height:1px;background:var(--teal);}
+.cover h1{font-family:var(--serif);font-size:clamp(40px,7vw,70px);font-weight:400;line-height:1.1;color:var(--text);margin-bottom:8px;}
+.cover h1 em{font-style:italic;color:var(--teal);}
+.cover-sub{font-family:var(--mono);font-size:12px;color:var(--text-dim);margin-bottom:48px;letter-spacing:1px;}
+.meta-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:3px;max-width:680px;margin-bottom:56px;}
+.meta-cell{background:var(--bg2);padding:16px 20px;}
+.meta-label{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--text-mute);margin-bottom:5px;}
+.meta-value{font-family:var(--mono);font-size:12px;color:var(--teal);}
+.cover-loop-row{display:flex;gap:10px;flex-wrap:wrap;}
+.loop-badge{font-family:var(--mono);font-size:9px;letter-spacing:2px;padding:5px 12px;border:1px solid;border-radius:2px;}
+
+.toc{position:sticky;top:0;z-index:100;background:rgba(8,9,15,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:12px 40px;display:flex;gap:28px;overflow-x:auto;}
+.toc a{font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--text-mute);text-decoration:none;white-space:nowrap;transition:color .2s;}
+.toc a:hover{color:var(--teal);}
+
+.section{padding:80px 0 0;}
+.section-tag{font-family:var(--mono);font-size:9px;letter-spacing:4px;color:var(--teal);margin-bottom:12px;display:flex;align-items:center;gap:14px;}
+.section-tag::before{content:"";display:block;width:28px;height:1px;background:var(--teal);}
+h2{font-family:var(--serif);font-size:36px;font-weight:400;color:var(--text);margin-bottom:6px;line-height:1.2;}
+h2 em{font-style:italic;color:var(--teal);}
+.section-lead{font-size:14px;color:var(--text-dim);max-width:680px;margin-bottom:40px;line-height:1.85;}
+h3{font-family:var(--serif);font-size:20px;font-weight:400;color:var(--text);margin:36px 0 12px;}
+h4{font-family:var(--mono);font-size:10px;letter-spacing:3px;color:var(--teal);margin:24px 0 8px;}
+p{margin-bottom:16px;color:var(--text-dim);line-height:1.85;}
+p strong{color:var(--text);font-weight:700;}
+
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:24px 28px;margin-bottom:16px;}
+.card-teal{border-left:3px solid var(--teal);}
+.card-blue{border-left:3px solid #3B82F6;}
+.card-amber{border-left:3px solid var(--amber);}
+.card-red{border-left:3px solid var(--red);}
+.card-purple{border-left:3px solid var(--purple);}
+.card-green{border-left:3px solid var(--green);}
+.card-label{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--text-mute);margin-bottom:10px;}
+.card h3{margin:0 0 8px;font-size:18px;}
+.card p{margin-bottom:0;font-size:13px;}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+
+.loop-card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:24px;}
+.loop-header{padding:20px 24px 16px;display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid var(--border);}
+.loop-name{font-family:var(--serif);font-size:22px;font-weight:400;}
+.loop-tag-chip{font-family:var(--mono);font-size:8px;letter-spacing:3px;padding:4px 10px;border:1px solid;border-radius:2px;}
+.loop-body{padding:20px 24px;}
+.loop-layer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:20px;}
+.loop-layer{background:var(--bg3);border:1px solid var(--border);border-radius:3px;padding:12px;}
+.loop-layer-num{font-family:var(--mono);font-size:8px;letter-spacing:2px;margin-bottom:5px;}
+.loop-layer-name{font-family:var(--mono);font-size:9px;font-weight:600;color:var(--text);margin-bottom:6px;}
+.loop-layer-desc{font-size:11px;color:var(--text-mute);line-height:1.6;}
+
+.clause-table{width:100%;border-collapse:collapse;margin-bottom:32px;}
+.clause-table th{font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--text-mute);border-bottom:1px solid var(--border);padding:10px 16px;text-align:left;background:var(--bg2);}
+.clause-table td{padding:14px 16px;border-bottom:1px solid rgba(30,34,53,.6);font-size:13px;color:var(--text-dim);vertical-align:top;}
+.clause-table tr:hover td{background:rgba(13,148,136,.03);}
+.clause-num{font-family:var(--mono);font-size:11px;color:var(--teal);white-space:nowrap;}
+.clause-title{color:var(--text);font-weight:400;}
+.clause-ai{font-family:var(--mono);font-size:10px;color:var(--text-mute);}
+.status-badge{font-family:var(--mono);font-size:8px;letter-spacing:2px;padding:3px 8px;border-radius:2px;white-space:nowrap;}
+.status-done{background:rgba(34,197,94,.1);color:var(--green);border:1px solid rgba(34,197,94,.2);}
+.status-ai{background:rgba(13,148,136,.1);color:var(--teal);border:1px solid rgba(13,148,136,.2);}
+.status-new{background:rgba(245,158,11,.1);color:var(--amber);border:1px solid rgba(245,158,11,.2);}
+.status-amber{background:rgba(245,158,11,.15);color:var(--amber);border:1px solid rgba(245,158,11,.3);}
+
+pre,code{font-family:var(--mono);font-size:12px;}
+pre{background:#060810;border:1px solid var(--border);border-radius:3px;padding:20px 24px;overflow-x:auto;line-height:1.7;color:#7080AA;margin-bottom:24px;}
+pre .kw{color:#0D9488;}
+pre .str{color:#F59E0B;}
+pre .cmt{color:#374151;font-style:italic;}
+pre .val{color:#A78BFA;}
+code{background:var(--bg3);border:1px solid var(--border);padding:2px 6px;border-radius:2px;font-size:11px;color:var(--teal);}
+
+.phase-block{margin-bottom:28px;border:1px solid var(--border);border-radius:4px;overflow:hidden;}
+.phase-header{background:var(--bg2);padding:14px 20px;display:flex;align-items:center;gap:16px;border-bottom:1px solid var(--border);}
+.phase-num{font-family:var(--mono);font-size:10px;letter-spacing:3px;color:var(--text-mute);}
+.phase-title{font-family:var(--mono);font-size:12px;color:var(--text);flex:1;}
+.task-row{padding:10px 20px;display:grid;grid-template-columns:90px 1fr 80px 110px;gap:16px;border-bottom:1px solid rgba(30,34,53,.4);font-size:12px;align-items:center;}
+.task-row:last-child{border-bottom:none;}
+.task-id{font-family:var(--mono);font-size:10px;color:var(--teal);}
+.task-desc{color:var(--text-dim);}
+.task-scope{font-family:var(--mono);font-size:9px;color:var(--text-mute);}
+
+.schema-block{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px;}
+.schema-table-card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;overflow:hidden;}
+.schema-table-header{background:var(--bg3);padding:10px 16px;font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--teal);border-bottom:1px solid var(--border);}
+.schema-field{padding:8px 16px;border-bottom:1px solid rgba(30,34,53,.5);display:flex;justify-content:space-between;align-items:center;font-size:12px;}
+.schema-field:last-child{border-bottom:none;}
+.schema-field-name{font-family:var(--mono);color:var(--text);}
+.schema-field-type{font-family:var(--mono);font-size:10px;color:var(--text-mute);}
+.schema-field-pk{color:var(--amber);}
+.schema-field-fk{color:var(--purple);}
+
+.divider{border:none;border-top:1px solid var(--border);margin:60px 0;}
+
+.callout{background:var(--teal-glow);border:1px solid rgba(13,148,136,.25);border-radius:4px;padding:20px 24px;margin-bottom:24px;}
+.callout-label{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--teal);margin-bottom:8px;}
+.callout p{color:var(--text-dim);margin:0;font-size:13px;}
+
+.endpoint{display:flex;align-items:baseline;gap:12px;padding:10px 16px;border-bottom:1px solid var(--border);background:var(--bg2);font-size:13px;}
+.endpoint:last-child{border-bottom:none;}
+.method{font-family:var(--mono);font-size:9px;letter-spacing:1px;padding:2px 8px;border-radius:2px;min-width:44px;text-align:center;}
+.method-get{background:rgba(34,197,94,.1);color:var(--green);}
+.method-post{background:rgba(13,148,136,.15);color:var(--teal);}
+.method-put{background:rgba(245,158,11,.1);color:var(--amber);}
+.endpoint-path{font-family:var(--mono);font-size:12px;color:var(--text);flex:1;}
+.endpoint-desc{font-size:12px;color:var(--text-mute);}
+
+.persona-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px;}
+.persona-card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:22px 24px;}
+.persona-role{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--text-mute);margin-bottom:6px;}
+.persona-name{font-family:var(--serif);font-size:18px;color:var(--text);margin-bottom:12px;}
+.persona-goal{font-size:13px;color:var(--text-dim);margin-bottom:12px;line-height:1.7;}
+.persona-pain{font-size:12px;color:var(--text-mute);font-style:italic;}
+
+.pricing-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:32px;}
+.pricing-card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:24px;}
+.pricing-card.featured{border-color:var(--teal);background:linear-gradient(180deg,rgba(13,148,136,.05) 0%,var(--bg2) 100%);}
+.pricing-tier{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--text-mute);margin-bottom:6px;}
+.pricing-name{font-family:var(--serif);font-size:22px;color:var(--text);margin-bottom:4px;}
+.pricing-price{font-family:var(--mono);font-size:28px;color:var(--teal);margin-bottom:4px;}
+.pricing-per{font-family:var(--mono);font-size:10px;color:var(--text-mute);margin-bottom:20px;}
+.pricing-features li{font-size:12px;color:var(--text-dim);padding:6px 0;border-bottom:1px solid rgba(30,34,53,.5);display:flex;gap:10px;list-style:none;}
+.pricing-features li::before{content:"→";color:var(--teal);font-family:var(--mono);}
+
+.deploy-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:28px;}
+.deploy-card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:20px 22px;}
+.deploy-platform{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--text-mute);margin-bottom:6px;}
+.deploy-name{font-family:var(--serif);font-size:18px;color:var(--text);margin-bottom:10px;}
+.deploy-item{font-size:12px;color:var(--text-dim);padding:4px 0;display:flex;gap:8px;}
+.deploy-item::before{content:"—";color:var(--text-mute);}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-bg"></div>
+  <div class="cover-grid"></div>
+  <div class="cover-content">
+    <div class="cover-tag">PRODUCT REQUIREMENTS DOCUMENT</div>
+    <h1><em>AuditFlow</em> — AI-Native<br>ISO 9001:2015 SaaS</h1>
+    <div class="cover-sub">Self-Assessment Platform · LOOP/OS Architecture · Hermes Agent Harness</div>
+    <div class="meta-grid">
+      <div class="meta-cell"><div class="meta-label">VERSION</div><div class="meta-value">2.0.0-ai</div></div>
+      <div class="meta-cell"><div class="meta-label">STATUS</div><div class="meta-value">ACTIVE</div></div>
+      <div class="meta-cell"><div class="meta-label">DATE</div><div class="meta-value">May 2026</div></div>
+      <div class="meta-cell"><div class="meta-label">AUTHOR</div><div class="meta-value">Staffan Greisz</div></div>
+    </div>
+    <div class="cover-loop-row">
+      <span class="loop-badge" style="color:#00D4FF;border-color:#00D4FF33">ASSESSMENT LOOP</span>
+      <span class="loop-badge" style="color:#00FF88;border-color:#00FF8833">CAPA LOOP</span>
+      <span class="loop-badge" style="color:#FFD600;border-color:#FFD60033">EVIDENCE LOOP</span>
+      <span class="loop-badge" style="color:#FF6B35;border-color:#FF6B3533">BENCHMARK LOOP</span>
+      <span class="loop-badge" style="color:#B44BFF;border-color:#B44BFF33">KNOWLEDGE LOOP</span>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="toc">
+  <a href="#vision">VISION</a>
+  <a href="#problem">PROBLEM</a>
+  <a href="#personas">PERSONAS</a>
+  <a href="#features">FEATURES</a>
+  <a href="#clauses">ISO CLAUSES</a>
+  <a href="#loops">LOOP/OS</a>
+  <a href="#agents">AGENTS</a>
+  <a href="#architecture">ARCHITECTURE</a>
+  <a href="#schema">SCHEMA</a>
+  <a href="#api">API</a>
+  <a href="#implementation">IMPLEMENTATION</a>
+  <a href="#deployment">DEPLOYMENT</a>
+  <a href="#pricing">PRICING</a>
+</nav>
+
+<div class="page">
+
+<!-- ═══ VISION -->
+<section class="section" id="vision">
+  <div class="section-tag">01 · VISION</div>
+  <h2>Not a checklist.<br>A <em>self-improving</em> QMS.</h2>
+  <p class="section-lead">AuditFlow v2 turns ISO 9001:2015 compliance from a periodic, human-driven audit exercise into a continuously self-improving AI system. Five recursive Hermes loops run 24/7 — evaluating evidence, closing gaps, recommending actions, and distilling organizational knowledge — so the quality posture gets stronger while everyone sleeps.</p>
+  <div class="grid2">
+    <div class="card card-teal">
+      <div class="card-label">WHAT CHANGED IN V2</div>
+      <h3>AI-Native, Not AI-Added</h3>
+      <p>V1 was a well-built audit tool. V2 makes the AI the engine, not a feature. Every workflow runs through a Hermes agent loop with sensors, policies, tools, and a learning mechanism.</p>
+    </div>
+    <div class="card card-blue">
+      <div class="card-label">THE LOOP/OS PRINCIPLE</div>
+      <h3>Burn Tokens, Not Headcount</h3>
+      <p>Based on Tom Blomfield's YC framework: replace management hierarchy with recursive AI loops. For ISO compliance: replace the annual audit cycle with a continuous self-improving system.</p>
+    </div>
+    <div class="card card-green">
+      <div class="card-label">EXISTING FOUNDATION</div>
+      <h3>Built on Solid V1</h3>
+      <p>108/108 MVP tasks complete. 151 tests passing. Next.js 14, Express, Prisma, Supabase, JWT auth, RBAC, NCR/CAPA management. V2 adds the AI layer on top.</p>
+    </div>
+    <div class="card card-amber">
+      <div class="card-label">MARKET POSITION</div>
+      <h3>ISO Compliance for Lean QMS Teams</h3>
+      <p>Organizations with 1–5 quality professionals. The AI loops replace the bandwidth constraint — one QM can run a company-wide QMS with AI doing the continuous work.</p>
+    </div>
+  </div>
+</section>
+<hr class="divider">
+
+<!-- ═══ PROBLEM -->
+<section class="section" id="problem">
+  <div class="section-tag">02 · PROBLEM STATEMENT</div>
+  <h2>ISO 9001 is a <em>once-a-year</em> event.<br>It should not be.</h2>
+  <p class="section-lead">Every organization with ISO 9001 certification runs the same painful cycle: scramble for the internal audit, prepare for the external audit, close the NCRs found, and go back to sleep until next year. The standard requires continual improvement — the reality is episodic compliance theater.</p>
+  <div class="grid3">
+    <div class="card card-red"><div class="card-label">PAIN 01</div><h3>Evidence is scattered</h3><p>Documents live in SharePoint, email threads, Slack, physical binders. Proving clause compliance requires manual archaeology every audit cycle.</p></div>
+    <div class="card card-red"><div class="card-label">PAIN 02</div><h3>Gaps found too late</h3><p>Compliance gaps surface during the external audit — not six months earlier when they could be fixed cheaply and without stress.</p></div>
+    <div class="card card-red"><div class="card-label">PAIN 03</div><h3>CAPA never closes</h3><p>Corrective actions get opened after every audit. A third are still open at the next audit. Root causes recur because no system learns from patterns.</p></div>
+    <div class="card card-red"><div class="card-label">PAIN 04</div><h3>Knowledge walks out</h3><p>The QMS lives in the heads of two people. When they leave, the institutional knowledge of how and why processes work disappears with them.</p></div>
+    <div class="card card-red"><div class="card-label">PAIN 05</div><h3>Benchmarks are guesswork</h3><p>Organizations have no way to know whether their maturity score is good or typical for their industry. Flying blind relative to peers.</p></div>
+    <div class="card card-red"><div class="card-label">PAIN 06</div><h3>Management review: ceremony</h3><p>Clause 9.3 review is a slide deck compiled the week before. Data is stale. Actions not tracked. The loop never actually closes.</p></div>
+  </div>
+  <div class="callout">
+    <div class="callout-label">AUDITFLOW V2 RESPONSE</div>
+    <p>Five autonomous AI loops replace the episodic audit cycle with continuous monitoring. Assessment Loop scores gaps weekly. CAPA Loop tracks actions and flags stalls. Evidence Loop tags and organizes documents in real time. Knowledge Loop builds the institutional brain. Benchmark Loop gives organizations a live view of how they compare.</p>
+  </div>
+</section>
+<hr class="divider">
+
+<!-- ═══ PERSONAS -->
+<section class="section" id="personas">
+  <div class="section-tag">03 · USER PERSONAS</div>
+  <h2>Who <em>uses</em> this.</h2>
+  <p class="section-lead">Four distinct user types, each with a different relationship to the AI loops.</p>
+  <div class="persona-grid">
+    <div class="persona-card">
+      <div class="persona-role">PRIMARY USER</div>
+      <div class="persona-name">The Quality Manager</div>
+      <div class="persona-goal">Responsible for ISO 9001 certification. Runs internal audits, manages NCRs, prepares management review. Wants to spend less time chasing evidence and more time actually improving processes.</div>
+      <div class="persona-pain">Spends 60% of audit prep time collecting documents that already exist somewhere in the organization.</div>
+    </div>
+    <div class="persona-card">
+      <div class="persona-role">SECONDARY USER</div>
+      <div class="persona-name">The Internal Auditor</div>
+      <div class="persona-goal">Conducts clause-by-clause assessments of departments. Needs structured question sets, evidence links, and a way to document findings without a 40-tab Excel nightmare.</div>
+      <div class="persona-pain">No tool tells them what clause gaps look like in this specific organization's context.</div>
+    </div>
+    <div class="persona-card">
+      <div class="persona-role">TERTIARY USER</div>
+      <div class="persona-name">The Executive / DRI</div>
+      <div class="persona-goal">Needs to understand compliance posture without reading audit reports. Approves CAPA budgets. Signs off on management review. Wants one-screen situational awareness.</div>
+      <div class="persona-pain">Gets audit results two weeks after the audit. By then the window to act has passed.</div>
+    </div>
+    <div class="persona-card">
+      <div class="persona-role">PLATFORM USER</div>
+      <div class="persona-name">The SaaS Admin</div>
+      <div class="persona-goal">Manages multiple organizations on the platform. Needs tenant isolation, consolidated reporting, benchmark visibility, and billing management across entities.</div>
+      <div class="persona-pain">Today this means separate spreadsheets per entity with no cross-org insight or AI leverage.</div>
+    </div>
+  </div>
+</section>
+<hr class="divider">
+
+<!-- ═══ FEATURES -->
+<section class="section" id="features">
+  <div class="section-tag">04 · FEATURE OVERVIEW</div>
+  <h2>What <em>ships</em> in V2.</h2>
+  <p class="section-lead">Organized by origin — built in V1, AI-enhanced in V2, or new.</p>
+  <div class="grid3" style="margin-bottom:32px">
+    <div class="card">
+      <div class="card-label">V1 · BUILT ✓</div>
+      <div class="deploy-item" style="color:var(--green)">Self-assessment management</div>
+      <div class="deploy-item" style="color:var(--green)">Audit planning &amp; scheduling</div>
+      <div class="deploy-item" style="color:var(--green)">NCR documentation</div>
+      <div class="deploy-item" style="color:var(--green)">CAPA tracking</div>
+      <div class="deploy-item" style="color:var(--green)">RBAC (Admin/Auditor/User)</div>
+      <div class="deploy-item" style="color:var(--green)">JWT authentication</div>
+      <div class="deploy-item" style="color:var(--green)">Supabase RLS</div>
+      <div class="deploy-item" style="color:var(--green)">REST API (Express + Prisma)</div>
+      <div class="deploy-item" style="color:var(--green)">Next.js 14 frontend</div>
+      <div class="deploy-item" style="color:var(--green)">151 passing tests</div>
+    </div>
+    <div class="card card-teal">
+      <div class="card-label">V2 · AI-ENHANCED</div>
+      <div class="deploy-item">AI gap analysis per clause</div>
+      <div class="deploy-item">Auto-scored assessments</div>
+      <div class="deploy-item">AI-recommended CAPA actions</div>
+      <div class="deploy-item">Evidence auto-tagging to clauses</div>
+      <div class="deploy-item">Root cause pattern detection</div>
+      <div class="deploy-item">AI management review draft</div>
+      <div class="deploy-item">Clause-to-evidence linking</div>
+      <div class="deploy-item">Maturity scoring 1–5</div>
+      <div class="deploy-item">Adaptive question sets</div>
+      <div class="deploy-item">Audit report generation</div>
+    </div>
+    <div class="card card-amber">
+      <div class="card-label">V2 · NEW</div>
+      <div class="deploy-item">Multi-tenant SaaS architecture</div>
+      <div class="deploy-item">Industry benchmark comparison</div>
+      <div class="deploy-item">Knowledge loop / org brain</div>
+      <div class="deploy-item">Self-improving question bank</div>
+      <div class="deploy-item">Continuous monitoring dashboard</div>
+      <div class="deploy-item">Loop health metrics</div>
+      <div class="deploy-item">Token usage analytics</div>
+      <div class="deploy-item">Hermes agent config UI</div>
+      <div class="deploy-item">Subscription / billing layer</div>
+      <div class="deploy-item">AI-guided onboarding flow</div>
+    </div>
+  </div>
+
+  <h3>Key User Stories</h3>
+  <div class="card" style="padding:0;overflow:hidden">
+    <div style="padding:14px 20px;border-bottom:1px solid var(--border);background:var(--bg3)"><span style="font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--text-mute)">QUALITY MANAGER</span></div>
+    <div style="padding:16px 20px;font-size:13px;color:var(--text-dim);line-height:2.2">
+      <div>→ Run a full ISO 9001:2015 assessment and get AI gap analysis before the external audit</div>
+      <div>→ Auto-tag uploaded documents to relevant ISO clauses without manual filing</div>
+      <div>→ Get CAPA overdue alerts at 80% of deadline — nothing slips through</div>
+      <div>→ Generate a data-driven management review draft from all loop outputs</div>
+      <div>→ See clause maturity scores benchmarked against industry peers</div>
+      <div>→ Keep a living QMS brain so institutional knowledge does not leave with people</div>
+    </div>
+  </div>
+</section>
+<hr class="divider">
+
+<!-- ═══ ISO CLAUSES -->
+<section class="section" id="clauses">
+  <div class="section-tag">05 · ISO 9001:2015 CLAUSE MAP</div>
+  <h2>Every clause.<br><em>AI-powered.</em></h2>
+  <p class="section-lead">AuditFlow maps all normative requirements of ISO 9001:2015 (clauses 4–10) to specific assessment questions, evidence requirements, maturity descriptors, and AI loop actions.</p>
+
+  <table class="clause-table">
+    <thead>
+      <tr><th>CLAUSE</th><th>TITLE</th><th>QUESTIONS / EVIDENCE</th><th>PRIMARY LOOP</th><th>STATUS</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="clause-num">4.1</td><td class="clause-title">Context of the organization</td><td class="clause-ai">6 Q · stakeholder matrix · SWOT</td><td class="clause-ai">Assessment + Knowledge</td><td><span class="status-badge status-ai">AI-ENHANCED</span></td></tr>
+      <tr><td class="clause-num">4.2</td><td class="clause-title">Needs of interested parties</td><td class="clause-ai">8 Q · stakeholder register</td><td class="clause-ai">Assessment</td><td><span class="status-badge status-ai">AI-ENHANCED</span></td></tr>
+      <tr><td class="clause-num">4.3</td><td class="clause-title">Scope of the QMS</td><td class="clause-ai">4 Q · scope document review</td><td class="clause-ai">Evidence + Knowledge</td><td><span class="status-badge status-done">BUILT V1</span></td></tr>
+      <tr><td class="clause-num">4.4</td><td class="clause-title">QMS and its processes</td><td class="clause-ai">12 Q · process map upload</td><td class="clause-ai">Evidence + Assessment</td><td><span class="status-badge status-ai">AI-ENHANCED</span></td></tr>
+      <tr><td class="clause-num">5.1</td><td class="clause-title">Leadership and commitment</td><td class="clause-ai">8 Q · management review records</td><td class="clause-ai">Assessment + Knowledge</td><td><span class="status-badge status-done">BUILT V1</span></td></tr>
+      <tr><td class="clause-num">5.2</td><td class="clause-title">Quality policy</td><td class="clause-ai">5 Q · policy document scan</td><td class="clause-ai">Evidence</td><td><span class="status-badge status-done">BUILT V1</span></td></tr>
+      <tr><td class="clause-num">5.3</td><td class="clause-title">Roles, responsibilities, authorities</td><td class="clause-ai">6 Q · org chart · job descriptions</td><td class="clause-ai">Evidence + Knowledge</td><td><span class="status-badge status-ai">AI-ENHANCED</span></td></tr>
+      <tr><td class="clause-num">6.1</td><td class="clause-title">Actions to address risks &amp; opportunities</td><td class="clause-ai">10 Q · risk register review</td><td class="clause-ai">Assessment + CAPA</td><td><span class="status-badge status-ai">AI-ENHANCED</span></td></tr>
+      <tr><td class="clause-num">6.2</td><td class="clause-title">Quality objectives</td><td class="clause-ai">6 Q · objective tracking evidence</td><td class="clause-ai">Assessment + Benchmark</td><td><span class="status-badge status-done">BUILT V1</span></td></tr>
+      <tr><td class="clause-num">6.3</td><td class="clause-title">Planning of changes</td><td class="clause-ai">4 Q · change log</td><td class="clause-ai">Evidence</td><td><span class="status-badge status-new">NEW V2</span></td></tr>
+      <tr><td class="clause-num">7.1</td><td class="clause-title">Resources (people, infra, environment, monitoring)</td><td class="clause-ai">14 Q · competence matrix</td><td class="clause-ai">Assessment + Evidence</td><td><span class="status-badge status-ai">AI-ENHANCED</span></td></tr>
+      <tr><td class="clause-num">7.2</td><td class="clause-title">Competence</td><td class="clause-ai">6 Q · training records</td><td class="clause-ai">Evidence</td><td><span class="status-badge status-done">BUILT V1</span></td></tr>
+      <tr><td class="clause-num">7.3</td><td class="clause-title">Awareness</td><td class="clause-ai">4 Q</td><td class="clause-ai">Assessment</td><td><span class="status-badge status-done">BUILT V1</span></td></tr>
+      <tr><td class="clause-num">7.4</td><td class="clause-title">Communication</td><td class="clause-ai">5 Q · communication plan</td><td class="clause-ai">Evidence + Knowledge</td><td><span class="status-badge status-new">NEW V2</span></td></tr>
+      <tr><td class="clause-num">7.5</td><td class="clause-title">Documented information</td><td class="clause-ai">8 Q · document register audit</td><td class="clause-ai">Evidence Loop (primary)</td><td><span class="status-badge status-ai">AI-ENHANCED</span></td></tr>
+      <tr><td class="clause-num">8.1</td><td class="clause-title">Operational planning and control</td><td class="clause-ai">8 Q · process SOPs</td><td class="clause-ai">Assessment + Evidence</td><td><span class="status-badge status-ai">AI-ENHANCED</span></td></tr>
+      <tr><td class="clause-num">8.4</td><td class="clause-title">Control of externally provided processes</td><td class="clause-ai">10 Q · supplier evaluations</td><td class="clause-ai">Evidence + CAPA</td><td><span class="status-badge status-ai">AI-ENHANCED</span></td></tr>
+      <tr><td class="clause-num">8.7</td><td class="clause-title">Control of nonconforming outputs</td><td class="clause-ai">6 Q · NCR log review</td><td class="clause-ai">CAPA Loop (primary)</td><td><span class="status-badge status-done">BUILT V1</span></td></tr>
+      <tr><td class="clause-num">9.1</td><td class="clause-title">Monitoring, measurement, analysis</td><td class="clause-ai">12 Q · KPI evidence</td><td class="clause-ai">Assessment + Benchmark</td><td><span class="status-badge status-ai">AI-ENHANCED</span></td></tr>
+      <tr><td class="clause-num">9.2</td><td class="clause-title">Internal audit</td><td class="clause-ai">10 Q · audit plan + reports</td><td class="clause-ai">Assessment Loop (primary)</td><td><span class="status-badge status-done">BUILT V1</span></td></tr>
+      <tr><td class="clause-num">9.3</td><td class="clause-title">Management review</td><td class="clause-ai">8 Q · auto-draft from all loops</td><td class="clause-ai">All Loops → Knowledge</td><td><span class="status-badge status-new">NEW V2</span></td></tr>
+      <tr><td class="clause-num">10.1</td><td class="clause-title">Improvement — general</td><td class="clause-ai">4 Q</td><td class="clause-ai">CAPA + Knowledge</td><td><span class="status-badge status-done">BUILT V1</span></td></tr>
+      <tr><td class="clause-num">10.2</td><td class="clause-title">Nonconformity and corrective action</td><td class="clause-ai">12 Q · CAPA effectiveness review</td><td class="clause-ai">CAPA Loop (primary)</td><td><span class="status-badge status-done">BUILT V1</span></td></tr>
+      <tr><td class="clause-num">10.3</td><td class="clause-title">Continual improvement</td><td class="clause-ai">6 Q · improvement history</td><td class="clause-ai">All Loops</td><td><span class="status-badge status-ai">AI-ENHANCED</span></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Maturity Model (1–5)</h3>
+  <div class="grid3">
+    <div class="card"><div class="card-label">LEVEL 1 — INITIAL</div><p>No documented process. Ad hoc, reactive. Relies on individual heroics.</p></div>
+    <div class="card"><div class="card-label">LEVEL 2 — MANAGED</div><p>Process exists but not consistently followed. Partial documentation.</p></div>
+    <div class="card"><div class="card-label">LEVEL 3 — DEFINED</div><p>Standardized, documented. Consistently followed. Evidence available.</p></div>
+    <div class="card card-teal"><div class="card-label">LEVEL 4 — MEASURED</div><p>Monitored with KPIs. Trends tracked. Data-driven decisions made.</p></div>
+    <div class="card card-teal"><div class="card-label">LEVEL 5 — OPTIMIZING</div><p>Continuous improvement built in. Proactive. Benchmarked against peers.</p></div>
+    <div class="card"><div class="card-label">AI ROLE</div><p>Assessment Loop scores each clause, flags regression, drives maturity toward Level 5 via CAPA recommendations.</p></div>
+  </div>
+</section>
+<hr class="divider">
+
+<!-- ═══ LOOP/OS -->
+<section class="section" id="loops">
+  <div class="section-tag">06 · LOOP/OS ARCHITECTURE</div>
+  <h2>Five loops.<br><em>One brain.</em></h2>
+  <p class="section-lead">Each loop: Sensor → Policy → Tools → QA Gate → Learning. Together they form a self-improving QMS organism. Humans at the edges — DRIs handle what AI cannot reach yet.</p>
+
+  <!-- LOOP 1 -->
+  <div class="loop-card">
+    <div class="loop-header">
+      <div>
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:3px;color:#00D4FF;opacity:.7;margin-bottom:4px">LOOP 01</div>
+        <div class="loop-name" style="color:#00D4FF">Assessment Loop</div>
+        <div style="font-size:12px;color:var(--text-mute);margin-top:4px">Score → Analyze → Gap Report · continuous clause evaluation</div>
+      </div>
+      <div style="text-align:right">
+        <span class="loop-tag-chip" style="color:#00D4FF;border-color:#00D4FF44">HERMES AGENT</span>
+        <div style="font-size:11px;color:var(--text-mute);margin-top:6px">DRI: QM / Internal Auditor</div>
+      </div>
+    </div>
+    <div class="loop-body">
+      <div class="loop-layer-grid">
+        <div class="loop-layer"><div class="loop-layer-num" style="color:#00D4FF">01 · SENSOR</div><div class="loop-layer-name">Incoming Signals</div><div class="loop-layer-desc">Assessment responses, evidence uploads, audit schedule triggers, weekly cron</div></div>
+        <div class="loop-layer"><div class="loop-layer-num" style="color:#00D4FF">02 · POLICY</div><div class="loop-layer-name">Scoring Rules</div><div class="loop-layer-desc">ISO clause weighting, maturity descriptors 1–5, confidence threshold 0.8, evidence sufficiency rules</div></div>
+        <div class="loop-layer"><div class="loop-layer-num" style="color:#00D4FF">03 · TOOLS</div><div class="loop-layer-name">AI Capabilities</div><div class="loop-layer-desc">Claude API (gap analysis, question gen), Supabase (store scores), evidence classifier, report generator</div></div>
+        <div class="loop-layer"><div class="loop-layer-num" style="color:#00D4FF">04 · QA GATE</div><div class="loop-layer-name">Quality Controls</div><div class="loop-layer-desc">Confidence ≥ 0.8, evidence sufficiency check, human review required for maturity score = 1</div></div>
+        <div class="loop-layer"><div class="loop-layer-num" style="color:#00D4FF">05 · LEARNING</div><div class="loop-layer-name">Self-Improvement</div><div class="loop-layer-desc">Question bank refinement, clause weight calibration, scoring model update, benchmark contribution</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--text-mute)"><strong style="color:var(--text)">Human escalation:</strong> Maturity Level 1 finding · evidence contradiction · management review sign-off</div>
+    </div>
+  </div>
+
+  <!-- LOOP 2 -->
+  <div class="loop-card">
+    <div class="loop-header">
+      <div>
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:3px;color:#00FF88;opacity:.7;margin-bottom:4px">LOOP 02</div>
+        <div class="loop-name" style="color:#00FF88">CAPA Loop</div>
+        <div style="font-size:12px;color:var(--text-mute);margin-top:4px">Gap → Root Cause → Action → Close · self-healing QMS</div>
+      </div>
+      <div style="text-align:right">
+        <span class="loop-tag-chip" style="color:#00FF88;border-color:#00FF8844">HERMES AGENT</span>
+        <div style="font-size:11px;color:var(--text-mute);margin-top:6px">DRI: Quality Manager</div>
+      </div>
+    </div>
+    <div class="loop-body">
+      <div class="loop-layer-grid">
+        <div class="loop-layer"><div class="loop-layer-num" style="color:#00FF88">01 · SENSOR</div><div class="loop-layer-name">NCR / Gap Signals</div><div class="loop-layer-desc">Assessment gaps, NCR database, CAPA overdue flags, recurring failure patterns from knowledge loop</div></div>
+        <div class="loop-layer"><div class="loop-layer-num" style="color:#00FF88">02 · POLICY</div><div class="loop-layer-name">Prioritization Rules</div><div class="loop-layer-desc">Severity × frequency matrix, deadline tiers (14/30/60d), auto-escalation at 80% of deadline</div></div>
+        <div class="loop-layer"><div class="loop-layer-num" style="color:#00FF88">03 · TOOLS</div><div class="loop-layer-name">AI Capabilities</div><div class="loop-layer-desc">Root cause analysis (5-Why, Fishbone via Claude), SMART action recommendations, effectiveness criteria</div></div>
+        <div class="loop-layer"><div class="loop-layer-num" style="color:#00FF88">04 · QA GATE</div><div class="loop-layer-name">Quality Controls</div><div class="loop-layer-desc">SMART criteria validation, deadline feasibility, owner assignment check, specificity scoring</div></div>
+        <div class="loop-layer"><div class="loop-layer-num" style="color:#00FF88">05 · LEARNING</div><div class="loop-layer-name">Self-Improvement</div><div class="loop-layer-desc">Effective action archive, recurring root cause index, pattern → proactive suggestion upgrade</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--text-mute)"><strong style="color:var(--text)">Human escalation:</strong> Systemic NCR · customer-complaint-linked · capital investment required</div>
+    </div>
+  </div>
+
+  <!-- LOOP 3 -->
+  <div class="loop-card">
+    <div class="loop-header">
+      <div>
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:3px;color:#FFD600;opacity:.7;margin-bottom:4px">LOOP 03</div>
+        <div class="loop-name" style="color:#FFD600">Evidence Loop</div>
+        <div style="font-size:12px;color:var(--text-mute);margin-top:4px">Upload → Classify → Tag → Link · automated documentary record</div>
+      </div>
+      <div style="text-align:right">
+        <span class="loop-tag-chip" style="color:#FFD600;border-color:#FFD60044">HERMES AGENT</span>
+        <div style="font-size:11px;color:var(--text-mute);margin-top:6px">DRI: Document Controller</div>
+      </div>
+    </div>
+    <div class="loop-body">
+      <div class="loop-layer-grid">
+        <div class="loop-layer"><div class="loop-layer-num" style="color:#FFD600">01 · SENSOR</div><div class="loop-layer-name">Document Signals</div><div class="loop-layer-desc">File uploads to Supabase Storage, clause gap alerts from Assessment Loop, coverage check triggers</div></div>
+        <div class="loop-layer"><div class="loop-layer-num" style="color:#FFD600">02 · POLICY</div><div class="loop-layer-name">Classification Rules</div><div class="loop-layer-desc">Document type taxonomy, relevance threshold ≥ 0.75, ISO clause mapping, retention schedule</div></div>
+        <div class="loop-layer"><div class="loop-layer-num" style="color:#FFD600">03 · TOOLS</div><div class="loop-layer-name">AI Capabilities</div><div class="loop-layer-desc">OCR + text extraction, Claude API (clause classification), auto-tagging, coverage gap identification</div></div>
+        <div class="loop-layer"><div class="loop-layer-num" style="color:#FFD600">04 · QA GATE</div><div class="loop-layer-name">Quality Controls</div><div class="loop-layer-desc">Relevance score check, coverage verification, document currency check (max 3 years old), PII scan</div></div>
+        <div class="loop-layer"><div class="loop-layer-num" style="color:#FFD600">05 · LEARNING</div><div class="loop-layer-name">Self-Improvement</div><div class="loop-layer-desc">Classification model improvement, coverage prediction refinement, document template suggestions</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--text-mute)"><strong style="color:var(--text)">Human escalation:</strong> Low confidence classification · sensitive/legal document · evidence conflict</div>
+    </div>
+  </div>
+
+  <!-- LOOP 4 -->
+  <div class="loop-card">
+    <div class="loop-header">
+      <div>
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:3px;color:#FF6B35;opacity:.7;margin-bottom:4px">LOOP 04</div>
+        <div class="loop-name" style="color:#FF6B35">Benchmark Loop</div>
+        <div style="font-size:12px;color:var(--text-mute);margin-top:4px">Aggregate → Anonymize → Compare · industry maturity intelligence</div>
+      </div>
+      <div style="text-align:right">
+        <span class="loop-tag-chip" style="color:#FF6B35;border-color:#FF6B3544">HERMES AGENT</span>
+        <div style="font-size:11px;color:var(--text-mute);margin-top:6px">DRI: Platform Ops</div>
+      </div>
+    </div>
+    <div class="loop-body">
+      <div class="loop-layer-grid">
+        <div class="loop-layer"><div class="loop-layer-num" style="color:#FF6B35">01 · SENSOR</div><div class="loop-layer-name">Cross-Org Signals</div><div class="loop-layer-desc">Anonymized assessment scores (opt-in), industry segment tags, company size, geography</div></div>
+        <div class="loop-layer"><div class="loop-layer-num" style="color:#FF6B35">02 · POLICY</div><div class="loop-layer-name">Privacy Rules</div><div class="loop-layer-desc">Strict anonymization before aggregation, min sample = 10 orgs, GDPR compliance, no re-identification</div></div>
+        <div class="loop-layer"><div class="loop-layer-num" style="color:#FF6B35">03 · TOOLS</div><div class="loop-layer-name">AI Capabilities</div><div class="loop-layer-desc">Statistical aggregation, industry segmentation, P25/P50/P75 scoring, clause-level benchmark generation</div></div>
+        <div class="loop-layer"><div class="loop-layer-num" style="color:#FF6B35">04 · QA GATE</div><div class="loop-layer-name">Quality Controls</div><div class="loop-layer-desc">Sample size ≥ 10 per segment, anonymization verification, outlier detection, consent check</div></div>
+        <div class="loop-layer"><div class="loop-layer-num" style="color:#FF6B35">05 · LEARNING</div><div class="loop-layer-name">Self-Improvement</div><div class="loop-layer-desc">Benchmark model recalibration, industry segment refinement, maturity distribution updates monthly</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--text-mute)"><strong style="color:var(--text)">Human escalation:</strong> Privacy incident · data quality anomaly · GDPR challenge from user</div>
+    </div>
+  </div>
+
+  <!-- LOOP 5 -->
+  <div class="loop-card">
+    <div class="loop-header">
+      <div>
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:3px;color:#B44BFF;opacity:.7;margin-bottom:4px">LOOP 05</div>
+        <div class="loop-name" style="color:#B44BFF">Knowledge Loop</div>
+        <div style="font-size:12px;color:var(--text-mute);margin-top:4px">Record → Diorize → Synthesize · the living QMS brain</div>
+      </div>
+      <div style="text-align:right">
+        <span class="loop-tag-chip" style="color:#B44BFF;border-color:#B44BFF44">HERMES AGENT</span>
+        <div style="font-size:11px;color:var(--text-mute);margin-top:6px">DRI: Quality Manager</div>
+      </div>
+    </div>
+    <div class="loop-body">
+      <div class="loop-layer-grid">
+        <div class="loop-layer"><div class="loop-layer-num" style="color:#B44BFF">01 · SENSOR</div><div class="loop-layer-name">Org Knowledge Signals</div><div class="loop-layer-desc">All assessment runs, audit reports, CAPA history, policy updates, process changes, loop reports</div></div>
+        <div class="loop-layer"><div class="loop-layer-num" style="color:#B44BFF">02 · POLICY</div><div class="loop-layer-name">Privacy + Quality</div><div class="loop-layer-desc">PII scrubbing before ingestion, data classification tiers, retention schedule, ISO version tracking</div></div>
+        <div class="loop-layer"><div class="loop-layer-num" style="color:#B44BFF">03 · TOOLS</div><div class="loop-layer-name">AI Capabilities</div><div class="loop-layer-desc">Summarization, vector DB indexing (pgvector), skills file writer, management review draft generator</div></div>
+        <div class="loop-layer"><div class="loop-layer-num" style="color:#B44BFF">04 · QA GATE</div><div class="loop-layer-name">Quality Controls</div><div class="loop-layer-desc">Accuracy score ≥ 0.9, PII check, contradiction detection, ISO clause accuracy verification</div></div>
+        <div class="loop-layer"><div class="loop-layer-num" style="color:#B44BFF">05 · LEARNING</div><div class="loop-layer-name">Self-Improvement</div><div class="loop-layer-desc">Monthly QMS manual regeneration, skills distillation, context compression, broadcast to all loops</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--text-mute)"><strong style="color:var(--text)">Human escalation:</strong> Sensitive info classification · data retention/deletion · knowledge conflict needing expert judgment</div>
+    </div>
+  </div>
+</section>
+<hr class="divider">
+
+<!-- ═══ AGENTS -->
+<section class="section" id="agents">
+  <div class="section-tag">07 · HERMES AGENT CONFIGURATIONS</div>
+  <h2>YAML configs<br>for each <em>loop.</em></h2>
+  <p class="section-lead">Each loop runs as an independent Hermes agent. Deploy under <code>agents/</code> in the AuditFlow repo.</p>
+
+  <h3>Assessment Loop</h3>
+<pre><span class="kw">name</span>: assessment-loop
+<span class="kw">model</span>: claude-sonnet-4-20250514
+
+<span class="kw">persona</span>: |
+  ISO 9001:2015 Assessment Agent for AuditFlow.
+  Analyze assessment responses, score each clause 1-5,
+  identify gaps, recommend evidence to gather, generate
+  gap analysis reports. Organizations get smarter
+  assessments every cycle without additional human effort.
+
+<span class="kw">sensors</span>:
+  - <span class="kw">id</span>: assessment_responses
+    <span class="kw">type</span>: webhook
+    <span class="kw">source</span>: supabase_realtime
+    <span class="kw">table</span>: assessment_responses
+    <span class="kw">event</span>: INSERT
+  - <span class="kw">id</span>: weekly_clause_review
+    <span class="kw">type</span>: cron
+    <span class="kw">schedule</span>: <span class="str">"0 6 * * 1"</span>  <span class="cmt"># Monday 06:00 UTC</span>
+
+<span class="kw">policy</span>:
+  <span class="kw">maturity_scale</span>: 1-5
+  <span class="kw">confidence_threshold</span>: 0.8
+  <span class="kw">auto_generate_report</span>: true
+  <span class="kw">require_human_review</span>: [maturity_score_1, evidence_conflict]
+
+<span class="kw">tools</span>:
+  - supabase_db         <span class="cmt"># read/write assessment data</span>
+  - claude_api          <span class="cmt"># gap analysis, question generation</span>
+  - evidence_classifier <span class="cmt"># tag uploaded docs to clauses</span>
+  - report_generator    <span class="cmt"># PDF/HTML gap report output</span>
+  - notification_api    <span class="cmt"># alert QM on gaps found</span>
+
+<span class="kw">quality_gate</span>:
+  <span class="kw">response_confidence</span>:
+    <span class="kw">threshold</span>: 0.8
+    <span class="kw">fail_action</span>: request_clarification
+  <span class="kw">human_review_maturity_1</span>: { <span class="kw">required</span>: true }
+
+<span class="kw">learning</span>:
+  <span class="kw">on_assessment_complete</span>:
+    - update_question_bank: true
+    - contribute_to_benchmark: true
+    - report_to_knowledge_loop: true
+  <span class="kw">monthly</span>:
+    - recalibrate_clause_weights: true</pre>
+
+  <h3>CAPA Loop</h3>
+<pre><span class="kw">name</span>: capa-loop
+<span class="kw">model</span>: claude-sonnet-4-20250514
+
+<span class="kw">persona</span>: |
+  CAPA Intelligence Agent for AuditFlow.
+  Monitor all open NCRs and corrective actions,
+  identify recurring root causes, recommend SMART
+  actions with owners and deadlines, close the loop
+  on every finding. Prevent the same nonconformity
+  from appearing twice.
+
+<span class="kw">sensors</span>:
+  - <span class="kw">id</span>: new_ncr
+    <span class="kw">type</span>: webhook
+    <span class="kw">source</span>: supabase_realtime
+    <span class="kw">table</span>: non_conformities
+    <span class="kw">event</span>: INSERT
+  - <span class="kw">id</span>: capa_overdue
+    <span class="kw">type</span>: cron
+    <span class="kw">schedule</span>: <span class="str">"0 8 * * *"</span>  <span class="cmt"># daily 08:00 UTC</span>
+    <span class="kw">filter</span>: <span class="str">"due_date &lt; now() + interval '7 days' AND status != closed"</span>
+
+<span class="kw">policy</span>:
+  <span class="kw">severity_matrix</span>:
+    <span class="kw">critical</span>: { <span class="kw">deadline_days</span>: 14, <span class="kw">escalate_immediately</span>: true }
+    <span class="kw">major</span>:    { <span class="kw">deadline_days</span>: 30, <span class="kw">escalate_at</span>: "80% of deadline" }
+    <span class="kw">minor</span>:    { <span class="kw">deadline_days</span>: 60, <span class="kw">escalate_at</span>: "80% of deadline" }
+  <span class="kw">require_human_review</span>:
+    - systemic_ncr
+    - customer_complaint_linked
+    - capital_investment_required
+
+<span class="kw">tools</span>:
+  - supabase_db
+  - claude_api          <span class="cmt"># 5-Why, Fishbone, SMART action generation</span>
+  - notification_api
+  - calendar_api        <span class="cmt"># set deadline reminders for CAPA owners</span>
+
+<span class="kw">learning</span>:
+  <span class="kw">on_capa_closed</span>:
+    - archive_effective_action: true
+    - update_root_cause_index: true
+  <span class="kw">on_recurring_pattern</span>:
+    - upgrade_to_proactive_suggestion: true
+    - flag_to_knowledge_loop: true</pre>
+
+  <h3>Evidence Loop</h3>
+<pre><span class="kw">name</span>: evidence-loop
+<span class="kw">model</span>: claude-sonnet-4-20250514
+
+<span class="kw">persona</span>: |
+  Evidence Intelligence Agent for AuditFlow.
+  Every document uploaded gets classified, tagged to
+  the relevant ISO clauses, and linked to the active
+  assessment. If a clause has insufficient evidence,
+  flag it before the auditor asks.
+
+<span class="kw">sensors</span>:
+  - <span class="kw">id</span>: document_upload
+    <span class="kw">type</span>: webhook
+    <span class="kw">source</span>: supabase_storage
+    <span class="kw">event</span>: object.created
+    <span class="kw">bucket</span>: evidence
+  - <span class="kw">id</span>: coverage_gap_alert
+    <span class="kw">type</span>: queue
+    <span class="kw">source</span>: assessment-loop
+    <span class="kw">filter</span>: type=evidence_gap
+
+<span class="kw">policy</span>:
+  <span class="kw">relevance_threshold</span>: 0.75
+  <span class="kw">auto_tag</span>: true
+  <span class="kw">require_human_review</span>:
+    - relevance_score_below_threshold
+    - sensitive_personal_data_detected
+    - legal_contractual_document
+
+<span class="kw">tools</span>:
+  - supabase_storage    <span class="cmt"># read uploaded files</span>
+  - ocr_api             <span class="cmt"># extract text from PDFs and images</span>
+  - claude_api          <span class="cmt"># classify to ISO clause</span>
+  - supabase_db         <span class="cmt"># write tags and clause links</span>
+
+<span class="kw">quality_gate</span>:
+  <span class="kw">relevance_score</span>: { <span class="kw">threshold</span>: 0.75, <span class="kw">fail_action</span>: flag_for_human }
+  <span class="kw">pii_check</span>:       { <span class="kw">required</span>: true, <span class="kw">fail_action</span>: redact_and_notify }
+  <span class="kw">currency_check</span>:  { <span class="kw">max_age_years</span>: 3, <span class="kw">warn_if_exceeded</span>: true }</pre>
+
+  <h3>Knowledge Loop</h3>
+<pre><span class="kw">name</span>: knowledge-loop
+<span class="kw">model</span>: claude-sonnet-4-20250514
+
+<span class="kw">persona</span>: |
+  Knowledge Distillation Agent for AuditFlow.
+  Ingest all organizational signals — assessments,
+  CAPAs, policy updates, audit reports — and
+  continuously update the company QMS brain.
+  If it is not in the brain, it does not exist to
+  the other agents.
+
+<span class="kw">sensors</span>:
+  - <span class="kw">id</span>: loop_reports
+    <span class="kw">type</span>: queue
+    <span class="kw">source</span>: meta-orchestrator
+    <span class="kw">filter</span>: type=weekly_report
+  - <span class="kw">id</span>: policy_changes
+    <span class="kw">type</span>: webhook
+    <span class="kw">source</span>: supabase_realtime
+    <span class="kw">table</span>: quality_policies
+    <span class="kw">event</span>: UPDATE
+
+<span class="kw">policy</span>:
+  <span class="kw">pii_scrubbing</span>: strict
+  <span class="kw">retention_days</span>: 730
+  <span class="kw">auto_ingest</span>: true
+  <span class="kw">manual_regen_schedule</span>: <span class="str">"0 3 * * 1"</span>  <span class="cmt"># Monday 03:00 UTC</span>
+
+<span class="kw">tools</span>:
+  - summarization_engine
+  - vector_db           <span class="cmt"># pgvector on Supabase</span>
+  - skills_file_writer
+  - management_review_generator
+  - claude_api
+
+<span class="kw">learning</span>:
+  <span class="kw">always</span>: [update_company_brain]
+  <span class="kw">weekly</span>: [distill_skills, regenerate_qms_manual, broadcast_context_refresh]
+  <span class="kw">on_threshold</span>: [compress_context, prune_stale_entries]</pre>
+
+</section>
+<hr class="divider">
+
+<!-- ═══ ARCHITECTURE -->
+<section class="section" id="architecture">
+  <div class="section-tag">08 · TECHNICAL ARCHITECTURE</div>
+  <h2>Stack.<br><em>What is built. What is new.</em></h2>
+  <div class="deploy-grid">
+    <div class="deploy-card">
+      <div class="deploy-platform">FRONTEND</div>
+      <div class="deploy-name">Next.js 14</div>
+      <div class="deploy-item">App Router + TypeScript</div>
+      <div class="deploy-item">TailwindCSS (teal/blue theme)</div>
+      <div class="deploy-item">Zustand state management</div>
+      <div class="deploy-item">React Hook Form + Zod</div>
+      <div class="deploy-item">Recharts dashboards</div>
+      <div class="deploy-item" style="color:var(--teal)">NEW: Loop health monitor</div>
+      <div class="deploy-item" style="color:var(--teal)">NEW: AI Analysis Panel</div>
+      <div class="deploy-item" style="color:var(--teal)">NEW: Benchmark compare view</div>
+      <div class="deploy-item" style="color:var(--teal)">NEW: Evidence coverage heatmap</div>
+    </div>
+    <div class="deploy-card">
+      <div class="deploy-platform">BACKEND API</div>
+      <div class="deploy-name">Express.js</div>
+      <div class="deploy-item">TypeScript strict mode</div>
+      <div class="deploy-item">Prisma ORM</div>
+      <div class="deploy-item">JWT + Supabase Auth</div>
+      <div class="deploy-item">Zod validation</div>
+      <div class="deploy-item">RBAC middleware</div>
+      <div class="deploy-item" style="color:var(--teal)">NEW: /api/ai/* router</div>
+      <div class="deploy-item" style="color:var(--teal)">NEW: Hermes loop triggers</div>
+      <div class="deploy-item" style="color:var(--teal)">NEW: Webhook receivers</div>
+      <div class="deploy-item" style="color:var(--teal)">NEW: Token budget middleware</div>
+    </div>
+    <div class="deploy-card">
+      <div class="deploy-platform">AI LAYER</div>
+      <div class="deploy-name">Anthropic API</div>
+      <div class="deploy-item" style="color:var(--teal)">claude-sonnet-4-20250514</div>
+      <div class="deploy-item" style="color:var(--teal)">Gap analysis prompts</div>
+      <div class="deploy-item" style="color:var(--teal)">Root cause analysis (5-Why)</div>
+      <div class="deploy-item" style="color:var(--teal)">Document classification</div>
+      <div class="deploy-item" style="color:var(--teal)">Report generation</div>
+      <div class="deploy-item" style="color:var(--teal)">Adaptive question gen</div>
+      <div class="deploy-item" style="color:var(--teal)">Mgmt review drafts</div>
+      <div class="deploy-item" style="color:var(--teal)">Skills file distillation</div>
+    </div>
+    <div class="deploy-card">
+      <div class="deploy-platform">DATABASE</div>
+      <div class="deploy-name">Supabase</div>
+      <div class="deploy-item">PostgreSQL 15</div>
+      <div class="deploy-item">Row-level security (RLS)</div>
+      <div class="deploy-item">Realtime webhooks</div>
+      <div class="deploy-item">Storage (evidence bucket)</div>
+      <div class="deploy-item" style="color:var(--teal)">NEW: pgvector extension</div>
+      <div class="deploy-item" style="color:var(--teal)">NEW: Tenant isolation RLS</div>
+    </div>
+    <div class="deploy-card">
+      <div class="deploy-platform">INFRASTRUCTURE</div>
+      <div class="deploy-name">Vercel</div>
+      <div class="deploy-item">Frontend: Next.js deployment</div>
+      <div class="deploy-item">Backend: Serverless functions</div>
+      <div class="deploy-item">Edge CDN</div>
+      <div class="deploy-item" style="color:var(--teal)">NEW: Vercel Cron Jobs</div>
+      <div class="deploy-item" style="color:var(--teal)">NEW: vercel.json crons config</div>
+    </div>
+    <div class="deploy-card">
+      <div class="deploy-platform">AGENT HARNESS</div>
+      <div class="deploy-name">Hermes</div>
+      <div class="deploy-item" style="color:var(--teal)">5 loop agents (YAML)</div>
+      <div class="deploy-item" style="color:var(--teal)">Meta-orchestrator</div>
+      <div class="deploy-item" style="color:var(--teal)">Webhook-driven triggers</div>
+      <div class="deploy-item" style="color:var(--teal)">Cron-scheduled runs</div>
+      <div class="deploy-item" style="color:var(--teal)">Cross-loop signal bus</div>
+    </div>
+  </div>
+
+  <h3>System Flow — Assessment Run</h3>
+<pre><span class="cmt"># User submits self-assessment response</span>
+Browser → Next.js → Express API → Supabase DB
+                                      |
+                              Supabase Realtime Webhook
+                                      |
+                           <span class="kw">Assessment Loop</span> (Hermes)
+                           Read company brain context
+                           Call Claude API → gap analysis
+                           Score clause 1-5, write to clause_scores
+                           If gap found → queue CAPA Loop task
+                           Update Knowledge Loop brain
+                                      |
+                           QM sees live gap on dashboard
+                           Evidence Loop classifies any docs
+                           Benchmark Loop updates percentile
+
+<span class="cmt"># Weekly cron — Monday 06:00 UTC</span>
+<span class="kw">Assessment Loop</span> (Hermes cron trigger)
+  → Scan all clauses for score regression
+  → Flag clauses with stale evidence
+  → Generate weekly compliance digest
+  → Notify QM via notification_api</pre>
+</section>
+<hr class="divider">
+
+<!-- ═══ SCHEMA -->
+<section class="section" id="schema">
+  <div class="section-tag">09 · DATABASE SCHEMA — V2 ADDITIONS</div>
+  <h2>Supabase schema<br><em>additions for V2.</em></h2>
+  <p class="section-lead">V1 schema covers assessments, audits, NCRs, CAPAs, users. V2 adds AI loop tables, multi-tenant infrastructure, and vector storage.</p>
+
+  <div class="schema-block">
+    <div class="schema-table-card">
+      <div class="schema-table-header">organizations</div>
+      <div class="schema-field"><span class="schema-field-name schema-field-pk">id</span><span class="schema-field-type">uuid PK</span></div>
+      <div class="schema-field"><span class="schema-field-name">name</span><span class="schema-field-type">text NOT NULL</span></div>
+      <div class="schema-field"><span class="schema-field-name">industry_segment</span><span class="schema-field-type">text</span></div>
+      <div class="schema-field"><span class="schema-field-name">employee_count</span><span class="schema-field-type">integer</span></div>
+      <div class="schema-field"><span class="schema-field-name">subscription_tier</span><span class="schema-field-type">text</span></div>
+      <div class="schema-field"><span class="schema-field-name">token_budget_monthly</span><span class="schema-field-type">integer</span></div>
+      <div class="schema-field"><span class="schema-field-name">tokens_used_this_month</span><span class="schema-field-type">integer</span></div>
+      <div class="schema-field"><span class="schema-field-name">benchmark_opt_in</span><span class="schema-field-type">boolean</span></div>
+      <div class="schema-field"><span class="schema-field-name">created_at</span><span class="schema-field-type">timestamptz</span></div>
+    </div>
+
+    <div class="schema-table-card">
+      <div class="schema-table-header">clause_scores</div>
+      <div class="schema-field"><span class="schema-field-name schema-field-pk">id</span><span class="schema-field-type">uuid PK</span></div>
+      <div class="schema-field"><span class="schema-field-name schema-field-fk">assessment_id</span><span class="schema-field-type">uuid FK</span></div>
+      <div class="schema-field"><span class="schema-field-name schema-field-fk">organization_id</span><span class="schema-field-type">uuid FK</span></div>
+      <div class="schema-field"><span class="schema-field-name">clause_number</span><span class="schema-field-type">text</span></div>
+      <div class="schema-field"><span class="schema-field-name">maturity_score</span><span class="schema-field-type">integer 1-5</span></div>
+      <div class="schema-field"><span class="schema-field-name">confidence</span><span class="schema-field-type">float</span></div>
+      <div class="schema-field"><span class="schema-field-name">gap_summary</span><span class="schema-field-type">text</span></div>
+      <div class="schema-field"><span class="schema-field-name">evidence_coverage</span><span class="schema-field-type">float</span></div>
+      <div class="schema-field"><span class="schema-field-name">recommended_actions</span><span class="schema-field-type">jsonb</span></div>
+      <div class="schema-field"><span class="schema-field-name">scored_at</span><span class="schema-field-type">timestamptz</span></div>
+    </div>
+
+    <div class="schema-table-card">
+      <div class="schema-table-header">ai_loop_runs</div>
+      <div class="schema-field"><span class="schema-field-name schema-field-pk">id</span><span class="schema-field-type">uuid PK</span></div>
+      <div class="schema-field"><span class="schema-field-name">loop_name</span><span class="schema-field-type">text</span></div>
+      <div class="schema-field"><span class="schema-field-name schema-field-fk">organization_id</span><span class="schema-field-type">uuid FK</span></div>
+      <div class="schema-field"><span class="schema-field-name">trigger_type</span><span class="schema-field-type">text</span></div>
+      <div class="schema-field"><span class="schema-field-name">status</span><span class="schema-field-type">enum</span></div>
+      <div class="schema-field"><span class="schema-field-name">tokens_used</span><span class="schema-field-type">integer</span></div>
+      <div class="schema-field"><span class="schema-field-name">result_summary</span><span class="schema-field-type">jsonb</span></div>
+      <div class="schema-field"><span class="schema-field-name">escalated_to_human</span><span class="schema-field-type">boolean</span></div>
+      <div class="schema-field"><span class="schema-field-name">duration_ms</span><span class="schema-field-type">integer</span></div>
+      <div class="schema-field"><span class="schema-field-name">created_at</span><span class="schema-field-type">timestamptz</span></div>
+    </div>
+
+    <div class="schema-table-card">
+      <div class="schema-table-header">evidence_documents</div>
+      <div class="schema-field"><span class="schema-field-name schema-field-pk">id</span><span class="schema-field-type">uuid PK</span></div>
+      <div class="schema-field"><span class="schema-field-name schema-field-fk">organization_id</span><span class="schema-field-type">uuid FK</span></div>
+      <div class="schema-field"><span class="schema-field-name">storage_path</span><span class="schema-field-type">text</span></div>
+      <div class="schema-field"><span class="schema-field-name">document_type</span><span class="schema-field-type">text</span></div>
+      <div class="schema-field"><span class="schema-field-name">clauses_covered</span><span class="schema-field-type">text[]</span></div>
+      <div class="schema-field"><span class="schema-field-name">relevance_score</span><span class="schema-field-type">float</span></div>
+      <div class="schema-field"><span class="schema-field-name">ai_classification</span><span class="schema-field-type">jsonb</span></div>
+      <div class="schema-field"><span class="schema-field-name">requires_review</span><span class="schema-field-type">boolean</span></div>
+      <div class="schema-field"><span class="schema-field-name">created_at</span><span class="schema-field-type">timestamptz</span></div>
+    </div>
+
+    <div class="schema-table-card">
+      <div class="schema-table-header">benchmark_scores (anonymized)</div>
+      <div class="schema-field"><span class="schema-field-name schema-field-pk">id</span><span class="schema-field-type">uuid PK</span></div>
+      <div class="schema-field"><span class="schema-field-name">clause_number</span><span class="schema-field-type">text</span></div>
+      <div class="schema-field"><span class="schema-field-name">industry_segment</span><span class="schema-field-type">text</span></div>
+      <div class="schema-field"><span class="schema-field-name">p25_score</span><span class="schema-field-type">float</span></div>
+      <div class="schema-field"><span class="schema-field-name">p50_score</span><span class="schema-field-type">float</span></div>
+      <div class="schema-field"><span class="schema-field-name">p75_score</span><span class="schema-field-type">float</span></div>
+      <div class="schema-field"><span class="schema-field-name">sample_size</span><span class="schema-field-type">integer ≥ 10</span></div>
+      <div class="schema-field"><span class="schema-field-name">updated_at</span><span class="schema-field-type">timestamptz</span></div>
+    </div>
+
+    <div class="schema-table-card">
+      <div class="schema-table-header">knowledge_brain (pgvector)</div>
+      <div class="schema-field"><span class="schema-field-name schema-field-pk">id</span><span class="schema-field-type">uuid PK</span></div>
+      <div class="schema-field"><span class="schema-field-name schema-field-fk">organization_id</span><span class="schema-field-type">uuid FK</span></div>
+      <div class="schema-field"><span class="schema-field-name">section</span><span class="schema-field-type">text</span></div>
+      <div class="schema-field"><span class="schema-field-name">content_md</span><span class="schema-field-type">text</span></div>
+      <div class="schema-field"><span class="schema-field-name">embedding</span><span class="schema-field-type">vector(1536)</span></div>
+      <div class="schema-field"><span class="schema-field-name">source_type</span><span class="schema-field-type">text</span></div>
+      <div class="schema-field"><span class="schema-field-name">last_updated</span><span class="schema-field-type">timestamptz</span></div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">SUPABASE SETUP</div>
+    <p>Enable <code>pgvector</code> extension for <code>knowledge_brain</code> embeddings.
+    Enable Realtime on <code>assessment_responses</code> and <code>non_conformities</code> to trigger Hermes loops.
+    RLS on all new tables using <code>organization_id = auth.uid()</code> tenant isolation policy.
+    Storage bucket: <code>evidence</code> with per-org prefix <code>{org_id}/</code>.</p>
+  </div>
+
+  <h3>Prisma Schema Additions</h3>
+<pre><span class="cmt">// V2 additions to prisma/schema.prisma</span>
+
+<span class="kw">model</span> Organization {
+  id                    <span class="val">String</span>   @id @default(uuid())
+  name                  <span class="val">String</span>
+  industrySegment       <span class="val">String</span>?
+  subscriptionTier      <span class="val">String</span>   @default(<span class="str">"starter"</span>)
+  tokenBudgetMonthly    <span class="val">Int</span>      @default(100000)
+  tokensUsedThisMonth   <span class="val">Int</span>      @default(0)
+  benchmarkOptIn        <span class="val">Boolean</span>  @default(false)
+  createdAt             <span class="val">DateTime</span> @default(now())
+  clauseScores          ClauseScore[]
+  aiLoopRuns            AiLoopRun[]
+  evidenceDocuments     EvidenceDocument[]
+  knowledgeBrain        KnowledgeBrain[]
+}
+
+<span class="kw">model</span> ClauseScore {
+  id               <span class="val">String</span>   @id @default(uuid())
+  assessmentId     <span class="val">String</span>
+  organizationId   <span class="val">String</span>
+  clauseNumber     <span class="val">String</span>
+  maturityScore    <span class="val">Int</span>      <span class="cmt">// 1-5</span>
+  confidence       <span class="val">Float</span>
+  gapSummary       <span class="val">String</span>?
+  evidenceCoverage <span class="val">Float</span>?
+  scoredAt         <span class="val">DateTime</span> @default(now())
+  organization     Organization @relation(fields: [organizationId], references: [id])
+}
+
+<span class="kw">model</span> AiLoopRun {
+  id               <span class="val">String</span>   @id @default(uuid())
+  loopName         <span class="val">String</span>
+  organizationId   <span class="val">String</span>
+  triggerType      <span class="val">String</span>   <span class="cmt">// webhook | cron | manual</span>
+  status           <span class="val">String</span>   <span class="cmt">// running | completed | failed | escalated</span>
+  tokensUsed       <span class="val">Int</span>      @default(0)
+  resultSummary    <span class="val">Json</span>?
+  escalatedToHuman <span class="val">Boolean</span>  @default(false)
+  durationMs       <span class="val">Int</span>?
+  createdAt        <span class="val">DateTime</span> @default(now())
+  organization     Organization @relation(fields: [organizationId], references: [id])
+}</pre>
+</section>
+<hr class="divider">
+
+<!-- ═══ API -->
+<section class="section" id="api">
+  <div class="section-tag">10 · API SPECIFICATION — V2 ENDPOINTS</div>
+  <h2>New <em>AI endpoints</em><br>under /api/ai/</h2>
+  <p class="section-lead">V1 REST endpoints unchanged. V2 adds the AI-powered group. All endpoints require JWT auth and check token budget before calling Claude.</p>
+
+  <h3>Assessment AI</h3>
+  <div style="border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:20px">
+    <div class="endpoint"><span class="method method-post">POST</span><span class="endpoint-path">/api/ai/assessment/:id/analyze</span><span class="endpoint-desc">Run full clause gap analysis → Assessment Loop</span></div>
+    <div class="endpoint"><span class="method method-get">GET</span><span class="endpoint-path">/api/ai/assessment/:id/scores</span><span class="endpoint-desc">Get AI maturity scores for all clauses</span></div>
+    <div class="endpoint"><span class="method method-post">POST</span><span class="endpoint-path">/api/ai/assessment/:id/report</span><span class="endpoint-desc">Generate downloadable gap analysis report (PDF)</span></div>
+    <div class="endpoint"><span class="method method-get">GET</span><span class="endpoint-path">/api/ai/questions/:clause</span><span class="endpoint-desc">Get AI-generated adaptive questions for clause</span></div>
+    <div class="endpoint"><span class="method method-post">POST</span><span class="endpoint-path">/api/ai/management-review/draft</span><span class="endpoint-desc">Auto-draft from all loop outputs → Knowledge Loop</span></div>
+  </div>
+
+  <h3>CAPA AI</h3>
+  <div style="border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:20px">
+    <div class="endpoint"><span class="method method-post">POST</span><span class="endpoint-path">/api/ai/ncr/:id/root-cause</span><span class="endpoint-desc">5-Why + Fishbone root cause analysis</span></div>
+    <div class="endpoint"><span class="method method-post">POST</span><span class="endpoint-path">/api/ai/ncr/:id/recommend-actions</span><span class="endpoint-desc">Generate 3 SMART corrective action options</span></div>
+    <div class="endpoint"><span class="method method-get">GET</span><span class="endpoint-path">/api/ai/capa/patterns</span><span class="endpoint-desc">Recurring root cause pattern analysis across org</span></div>
+    <div class="endpoint"><span class="method method-get">GET</span><span class="endpoint-path">/api/ai/capa/at-risk</span><span class="endpoint-desc">CAPAs at 80% of deadline — pre-escalation list</span></div>
+  </div>
+
+  <h3>Evidence AI</h3>
+  <div style="border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:20px">
+    <div class="endpoint"><span class="method method-post">POST</span><span class="endpoint-path">/api/ai/evidence/classify</span><span class="endpoint-desc">Classify uploaded document to ISO clauses</span></div>
+    <div class="endpoint"><span class="method method-get">GET</span><span class="endpoint-path">/api/ai/evidence/coverage</span><span class="endpoint-desc">Clause evidence coverage map (% per clause)</span></div>
+    <div class="endpoint"><span class="method method-get">GET</span><span class="endpoint-path">/api/ai/evidence/gaps</span><span class="endpoint-desc">Clauses with insufficient evidence flagged</span></div>
+  </div>
+
+  <h3>Benchmark</h3>
+  <div style="border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:20px">
+    <div class="endpoint"><span class="method method-get">GET</span><span class="endpoint-path">/api/benchmark/:clause</span><span class="endpoint-desc">Industry P25/P50/P75 for specific clause</span></div>
+    <div class="endpoint"><span class="method method-get">GET</span><span class="endpoint-path">/api/benchmark/org-position</span><span class="endpoint-desc">Org percentile ranking across all clauses</span></div>
+  </div>
+
+  <h3>Loop Health</h3>
+  <div style="border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:20px">
+    <div class="endpoint"><span class="method method-get">GET</span><span class="endpoint-path">/api/loops/health</span><span class="endpoint-desc">Status of all 5 Hermes loops + last run time</span></div>
+    <div class="endpoint"><span class="method method-get">GET</span><span class="endpoint-path">/api/loops/runs</span><span class="endpoint-desc">Recent run history with token consumption</span></div>
+    <div class="endpoint"><span class="method method-get">GET</span><span class="endpoint-path">/api/loops/tokens</span><span class="endpoint-desc">Token usage breakdown by loop and period</span></div>
+    <div class="endpoint"><span class="method method-post">POST</span><span class="endpoint-path">/api/loops/cron/assessment</span><span class="endpoint-desc">Vercel cron trigger — Assessment Loop weekly run</span></div>
+    <div class="endpoint"><span class="method method-post">POST</span><span class="endpoint-path">/api/loops/cron/capa</span><span class="endpoint-desc">Vercel cron trigger — CAPA overdue daily check</span></div>
+  </div>
+
+  <h3>Example: Analyze Assessment</h3>
+<pre><span class="cmt">// POST /api/ai/assessment/:id/analyze</span>
+<span class="cmt">// Request body:</span>
+{
+  <span class="kw">"clauses"</span>: [<span class="str">"4.1"</span>, <span class="str">"6.1"</span>, <span class="str">"9.2"</span>],  <span class="cmt">// optional — omit for all</span>
+  <span class="kw">"includeEvidence"</span>: true,
+  <span class="kw">"generateReport"</span>: false
+}
+
+<span class="cmt">// Response:</span>
+{
+  <span class="kw">"assessmentId"</span>: <span class="str">"uuid"</span>,
+  <span class="kw">"analysisRunId"</span>: <span class="str">"uuid"</span>,
+  <span class="kw">"tokensUsed"</span>: <span class="val">2847</span>,
+  <span class="kw">"scores"</span>: [
+    {
+      <span class="kw">"clauseNumber"</span>: <span class="str">"4.1"</span>,
+      <span class="kw">"maturityScore"</span>: <span class="val">3</span>,
+      <span class="kw">"confidence"</span>: <span class="val">0.87</span>,
+      <span class="kw">"gapSummary"</span>: <span class="str">"Stakeholder analysis exists but is not systematically updated. No evidence of review cycle."</span>,
+      <span class="kw">"evidenceCoverage"</span>: <span class="val">0.60</span>,
+      <span class="kw">"recommendedActions"</span>: [
+        <span class="str">"Establish quarterly stakeholder review process with documented minutes"</span>,
+        <span class="str">"Create stakeholder register template and assign owner"</span>
+      ]
+    }
+  ],
+  <span class="kw">"overallMaturity"</span>: <span class="val">2.8</span>,
+  <span class="kw">"capaTriggered"</span>: <span class="val">true</span>,
+  <span class="kw">"capaIds"</span>: [<span class="str">"uuid-1"</span>]
+}</pre>
+</section>
+<hr class="divider">
+
+<!-- ═══ IMPLEMENTATION -->
+<section class="section" id="implementation">
+  <div class="section-tag">11 · IMPLEMENTATION PLAN — RALPH TASKS</div>
+  <h2>Phase by phase.<br><em>Sequential. No skipping.</em></h2>
+  <p class="section-lead">V1 complete (108/108 tasks, 151 tests). V2 adds AI in five phases. Each task is 1–2 hours max. Current blocker: Vercel deployment (DEPLOY-001).</p>
+
+  <div class="phase-block">
+    <div class="phase-header">
+      <span class="phase-num">PHASE 01</span>
+      <span class="phase-title">AI Foundation — SDK, schema migrations, token budget middleware</span>
+      <span class="status-badge status-new">NEW</span>
+    </div>
+    <div class="phase-tasks">
+      <div class="task-row"><span class="task-id">AI-001</span><span class="task-desc">Add Anthropic SDK to backend. Configure env. Create <code>src/services/ai.service.ts</code> base client wrapper.</span><span class="task-scope">backend</span><span class="status-badge status-new">NEW</span></div>
+      <div class="task-row"><span class="task-id">AI-002</span><span class="task-desc">Prisma migration: <code>organizations</code>, <code>clause_scores</code>, <code>ai_loop_runs</code>, <code>evidence_documents</code> tables.</span><span class="task-scope">db</span><span class="status-badge status-new">NEW</span></div>
+      <div class="task-row"><span class="task-id">AI-003</span><span class="task-desc">Enable pgvector on Supabase. Add <code>knowledge_brain</code> table with <code>vector(1536)</code> column. Migration file.</span><span class="task-scope">db</span><span class="status-badge status-new">NEW</span></div>
+      <div class="task-row"><span class="task-id">AI-004</span><span class="task-desc">Implement tenant isolation RLS policies on all new AI tables (<code>organization_id = auth.uid()</code>).</span><span class="task-scope">db</span><span class="status-badge status-new">NEW</span></div>
+      <div class="task-row"><span class="task-id">AI-005</span><span class="task-desc">Add <code>/api/ai/*</code> router scaffold + token budget middleware: check budget before every Claude call.</span><span class="task-scope">backend</span><span class="status-badge status-new">NEW</span></div>
+      <div class="task-row"><span class="task-id">AI-006</span><span class="task-desc">Configure Supabase Realtime webhooks: <code>assessment_responses</code> INSERT → <code>/api/loops/trigger/assessment</code>.</span><span class="task-scope">infra</span><span class="status-badge status-new">NEW</span></div>
+    </div>
+  </div>
+
+  <div class="phase-block">
+    <div class="phase-header">
+      <span class="phase-num">PHASE 02</span>
+      <span class="phase-title">Assessment Loop — Gap analysis, maturity scoring, report generation</span>
+      <span class="status-badge status-new">NEW</span>
+    </div>
+    <div class="phase-tasks">
+      <div class="task-row"><span class="task-id">ASMT-001</span><span class="task-desc">Build ISO 9001:2015 question bank JSON: clauses 4–10, ~180 questions, maturity descriptors per level 1–5.</span><span class="task-scope">data</span><span class="status-badge status-new">NEW</span></div>
+      <div class="task-row"><span class="task-id">ASMT-002</span><span class="task-desc">Implement <code>analyzeClause()</code>: responses → Claude → returns maturity score + gap summary + evidence recommendations.</span><span class="task-scope">backend</span><span class="status-badge status-new">NEW</span></div>
+      <div class="task-row"><span class="task-id">ASMT-003</span><span class="task-desc"><code>POST /api/ai/assessment/:id/analyze</code> controller. Write results to <code>clause_scores</code>. Log run to <code>ai_loop_runs</code>.</span><span class="task-scope">backend</span><span class="status-badge status-new">NEW</span></div>
+      <div class="task-row"><span class="task-id">ASMT-004</span><span class="task-desc">Gap report generation: Claude produces structured HTML, store in Supabase Storage, return signed URL.</span><span class="task-scope">backend</span><span class="status-badge status-new">NEW</span></div>
+      <div class="task-row"><span class="task-id">ASMT-005</span><span class="task-desc">Frontend AI Analysis Panel: shows maturity score per clause, gap summary, recommended evidence, confidence bar.</span><span class="task-scope">frontend</span><span class="status-badge status-new">NEW</span></div>
+      <div class="task-row"><span class="task-id">ASMT-006</span><span class="task-desc">Frontend Clause Maturity Radar Chart (Recharts). All clauses 4–10 plotted on 1–5 scale vs benchmark overlay.</span><span class="task-scope">frontend</span><span class="status-badge status-new">NEW</span></div>
+      <div class="task-row"><span class="task-id">ASMT-007</span><span class="task-desc">Hermes <code>assessment-loop.yaml</code> + Vercel cron endpoint <code>POST /api/loops/cron/assessment</code> (Mon 06:00 UTC).</span><span class="task-scope">infra</span><span class="status-badge status-new">NEW</span></div>
+    </div>
+  </div>
+
+  <div class="phase-block">
+    <div class="phase-header">
+      <span class="phase-num">PHASE 03</span>
+      <span class="phase-title">CAPA Loop — Root cause AI, action recommendations, overdue detection</span>
+      <span class="status-badge status-new">NEW</span>
+    </div>
+    <div class="phase-tasks">
+      <div class="task-row"><span class="task-id">CAPA-001</span><span class="task-desc">Implement <code>analyzeRootCause()</code>: NCR description → Claude 5-Why chain + Fishbone → structured root cause tree.</span><span class="task-scope">backend</span><span class="status-badge status-new">NEW</span></div>
+      <div class="task-row"><span class="task-id">CAPA-002</span><span class="task-desc">Implement <code>recommendActions()</code>: root cause → 3 SMART corrective action options with owner suggestions.</span><span class="task-scope">backend</span><span class="status-badge status-new">NEW</span></div>
+      <div class="task-row"><span class="task-id">CAPA-003</span><span class="task-desc">Overdue detection cron (daily 08:00): query CAPAs at 80% deadline → notify DRI → log to <code>ai_loop_runs</code>.</span><span class="task-scope">infra</span><span class="status-badge status-new">NEW</span></div>
+      <div class="task-row"><span class="task-id">CAPA-004</span><span class="task-desc">Weekly pattern detection: cross-NCR root cause analysis → identify recurrence → flag to Knowledge Loop.</span><span class="task-scope">backend</span><span class="status-badge status-new">NEW</span></div>
+      <div class="task-row"><span class="task-id">CAPA-005</span><span class="task-desc">Frontend NCR AI Panel: root cause tree visualization + selectable SMART action cards with one-click accept.</span><span class="task-scope">frontend</span><span class="status-badge status-new">NEW</span></div>
+    </div>
+  </div>
+
+  <div class="phase-block">
+    <div class="phase-header">
+      <span class="phase-num">PHASE 04</span>
+      <span class="phase-title">Evidence + Knowledge Loops — Document AI, org brain, management review draft</span>
+      <span class="status-badge status-new">NEW</span>
+    </div>
+    <div class="phase-tasks">
+      <div class="task-row"><span class="task-id">EVID-001</span><span class="task-desc">Upload handler: on file write to Supabase Storage bucket <code>evidence</code>, trigger evidence-loop classification.</span><span class="task-scope">backend</span><span class="status-badge status-new">NEW</span></div>
+      <div class="task-row"><span class="task-id">EVID-002</span><span class="task-desc">Implement <code>classifyDocument()</code>: OCR → Claude with clause mapping prompt → write tags to <code>evidence_documents</code>.</span><span class="task-scope">backend</span><span class="status-badge status-new">NEW</span></div>
+      <div class="task-row"><span class="task-id">EVID-003</span><span class="task-desc"><code>GET /api/ai/evidence/coverage</code>: returns per-clause evidence completeness % as heatmap data.</span><span class="task-scope">backend</span><span class="status-badge status-new">NEW</span></div>
+      <div class="task-row"><span class="task-id">KNOW-001</span><span class="task-desc">Knowledge brain schema + vector indexing: embed assessment summaries and CAPA learnings into pgvector.</span><span class="task-scope">db</span><span class="status-badge status-new">NEW</span></div>
+      <div class="task-row"><span class="task-id">KNOW-002</span><span class="task-desc">Management review draft generator: aggregate all loop outputs → Claude → structured Markdown draft.</span><span class="task-scope">backend</span><span class="status-badge status-new">NEW</span></div>
+      <div class="task-row"><span class="task-id">KNOW-003</span><span class="task-desc">Frontend Evidence Coverage Heatmap: clause grid, green/amber/red by coverage %. Urgency-driven UI.</span><span class="task-scope">frontend</span><span class="status-badge status-new">NEW</span></div>
+    </div>
+  </div>
+
+  <div class="phase-block">
+    <div class="phase-header">
+      <span class="phase-num">PHASE 05</span>
+      <span class="phase-title">Benchmark + SaaS Layer — Multi-tenancy, billing, onboarding</span>
+      <span class="status-badge status-new">NEW</span>
+    </div>
+    <div class="phase-tasks">
+      <div class="task-row"><span class="task-id">BENCH-001</span><span class="task-desc">Weekly anonymized aggregation: collect opt-in scores → compute P25/P50/P75 per clause per industry segment.</span><span class="task-scope">backend</span><span class="status-badge status-new">NEW</span></div>
+      <div class="task-row"><span class="task-id">BENCH-002</span><span class="task-desc">Benchmark API + radar chart frontend: org score overlaid with P50 line and P25-P75 band per clause.</span><span class="task-scope">full</span><span class="status-badge status-new">NEW</span></div>
+      <div class="task-row"><span class="task-id">SAAS-001</span><span class="task-desc">Multi-tenant org model: org creation flow, email invitation, tenant isolation end-to-end tests.</span><span class="task-scope">full</span><span class="status-badge status-new">NEW</span></div>
+      <div class="task-row"><span class="task-id">SAAS-002</span><span class="task-desc">Subscription tier enforcement: token budget middleware, feature gating for AI endpoints per tier.</span><span class="task-scope">backend</span><span class="status-badge status-new">NEW</span></div>
+      <div class="task-row"><span class="task-id">SAAS-003</span><span class="task-desc">AI-guided onboarding: 5-step wizard → first gap analysis in under 20 minutes for new organization.</span><span class="task-scope">frontend</span><span class="status-badge status-new">NEW</span></div>
+      <div class="task-row"><span class="task-id">SAAS-004</span><span class="task-desc">Loop health dashboard: all 5 loop statuses, last run, token spend, escalation count — live updates.</span><span class="task-scope">frontend</span><span class="status-badge status-new">NEW</span></div>
+    </div>
+  </div>
+
+  <div class="phase-block">
+    <div class="phase-header" style="border-left:3px solid var(--amber)">
+      <span class="phase-num">PHASE 06</span>
+      <span class="phase-title">Deployment — Vercel fix, env vars, E2E smoke test</span>
+      <span class="status-badge status-amber">CURRENT PRIORITY</span>
+    </div>
+    <div class="phase-tasks">
+      <div class="task-row"><span class="task-id">DEPLOY-001</span><span class="task-desc">Fix Vercel backend: verify Express exports <code>app</code> (not <code>listen()</code> in prod), fix <code>vercel.json</code> routes + outputDirectory.</span><span class="task-scope">infra</span><span class="status-badge status-amber">BLOCKED</span></div>
+      <div class="task-row"><span class="task-id">DEPLOY-002</span><span class="task-desc">Set all production env vars in Vercel dashboard: <code>DATABASE_URL</code>, <code>JWT_SECRET</code>, <code>ANTHROPIC_API_KEY</code>, <code>SUPABASE_SERVICE_ROLE_KEY</code>.</span><span class="task-scope">infra</span><span class="status-badge status-amber">BLOCKED</span></div>
+      <div class="task-row"><span class="task-id">DEPLOY-003</span><span class="task-desc">Run V2 migrations on Supabase production. Enable pgvector. Confirm RLS active on all AI tables.</span><span class="task-scope">db</span><span class="status-badge status-new">NEW</span></div>
+      <div class="task-row"><span class="task-id">DEPLOY-004</span><span class="task-desc">Configure Vercel cron jobs in <code>vercel.json</code>: Assessment Loop (Mon 06:00) + CAPA Loop (daily 08:00).</span><span class="task-scope">infra</span><span class="status-badge status-new">NEW</span></div>
+      <div class="task-row"><span class="task-id">DEPLOY-005</span><span class="task-desc">E2E smoke test: assessment → AI analysis → gap report → NCR creation → CAPA AI → evidence upload → classify.</span><span class="task-scope">test</span><span class="status-badge status-new">NEW</span></div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">DEPLOY-001 · ROOT CAUSE OF VERCEL FAILURE</div>
+    <p>Express on Vercel runs as a serverless function. The entry point must export the Express <code>app</code> object
+    — not call <code>app.listen()</code>. Wrap with: <code>if (process.env.NODE_ENV !== 'production') app.listen(PORT)</code>.
+    Then <code>vercel.json</code> must point all <code>/api/*</code> routes to <code>dist/index.js</code>
+    with <code>outputDirectory: "dist"</code>. See Deployment section for the correct configuration.</p>
+  </div>
+</section>
+<hr class="divider">
+
+<!-- ═══ DEPLOYMENT -->
+<section class="section" id="deployment">
+  <div class="section-tag">12 · DEPLOYMENT CONFIGURATION</div>
+  <h2>Vercel + Supabase.<br><em>Config reference.</em></h2>
+
+  <div class="deploy-grid">
+    <div class="deploy-card">
+      <div class="deploy-platform">VERCEL · FRONTEND</div>
+      <div class="deploy-name">Next.js</div>
+      <div class="deploy-item">Root dir: <code>./frontend</code></div>
+      <div class="deploy-item">Build: <code>npm run build</code></div>
+      <div class="deploy-item">Framework: Next.js preset</div>
+      <div class="deploy-item">Branch: <code>main</code> auto-deploy</div>
+      <div class="deploy-item">Env: <code>NEXT_PUBLIC_*</code></div>
+    </div>
+    <div class="deploy-card" style="border-left:3px solid var(--amber)">
+      <div class="deploy-platform">VERCEL · BACKEND ⚠</div>
+      <div class="deploy-name">Express API</div>
+      <div class="deploy-item">Root dir: <code>./backend</code></div>
+      <div class="deploy-item">Build: <code>npm run build</code></div>
+      <div class="deploy-item">Output: <code>dist/index.js</code></div>
+      <div class="deploy-item" style="color:var(--amber)">Export app, no listen()</div>
+      <div class="deploy-item">Cron: in vercel.json</div>
+    </div>
+    <div class="deploy-card">
+      <div class="deploy-platform">SUPABASE</div>
+      <div class="deploy-name">PostgreSQL</div>
+      <div class="deploy-item">Extensions: pgvector, uuid-ossp</div>
+      <div class="deploy-item">Realtime: assessment_responses</div>
+      <div class="deploy-item">Storage: bucket <code>evidence</code></div>
+      <div class="deploy-item">RLS: all tables enabled</div>
+      <div class="deploy-item">Region: eu-central-1</div>
+    </div>
+  </div>
+
+  <h3>vercel.json — Backend (DEPLOY-001 fix)</h3>
+<pre>{
+  <span class="kw">"version"</span>: 2,
+  <span class="kw">"buildCommand"</span>: <span class="str">"npm run build"</span>,
+  <span class="kw">"outputDirectory"</span>: <span class="str">"dist"</span>,
+  <span class="kw">"functions"</span>: {
+    <span class="kw">"dist/index.js"</span>: { <span class="kw">"maxDuration"</span>: 30 }
+  },
+  <span class="kw">"routes"</span>: [
+    { <span class="kw">"src"</span>: <span class="str">"/api/(.*)"</span>, <span class="kw">"dest"</span>: <span class="str">"/dist/index.js"</span> },
+    { <span class="kw">"src"</span>: <span class="str">"/health"</span>,    <span class="kw">"dest"</span>: <span class="str">"/dist/index.js"</span> }
+  ],
+  <span class="kw">"crons"</span>: [
+    {
+      <span class="kw">"path"</span>: <span class="str">"/api/loops/cron/assessment"</span>,
+      <span class="kw">"schedule"</span>: <span class="str">"0 6 * * 1"</span>
+    },
+    {
+      <span class="kw">"path"</span>: <span class="str">"/api/loops/cron/capa"</span>,
+      <span class="kw">"schedule"</span>: <span class="str">"0 8 * * *"</span>
+    }
+  ]
+}</pre>
+
+  <h3>Environment Variables</h3>
+<pre><span class="cmt"># BACKEND — Vercel → Settings → Environment Variables</span>
+<span class="kw">DATABASE_URL</span>=postgresql://postgres:[PASSWORD]@db.fqnorsqggyshqfmihivw.supabase.co:5432/postgres
+<span class="kw">JWT_SECRET</span>=[generate: openssl rand -hex 32]
+<span class="kw">NODE_ENV</span>=production
+<span class="kw">ANTHROPIC_API_KEY</span>=sk-ant-...
+<span class="kw">SUPABASE_URL</span>=https://fqnorsqggyshqfmihivw.supabase.co
+<span class="kw">SUPABASE_SERVICE_ROLE_KEY</span>=[from Supabase dashboard → API → service_role]
+
+<span class="cmt"># FRONTEND — Vercel → Settings → Environment Variables</span>
+<span class="kw">NEXT_PUBLIC_API_URL</span>=https://audit-flow-backend.vercel.app/api
+<span class="kw">NEXT_PUBLIC_SUPABASE_URL</span>=https://fqnorsqggyshqfmihivw.supabase.co
+<span class="kw">NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY</span>=sb_publishable_4hBVz1TFzEwD5cMH0G1cbQ_8uX8KGpR</pre>
+
+  <h3>Express Entry Point — Fix for Serverless</h3>
+<pre><span class="cmt">// backend/src/index.ts — required for Vercel serverless</span>
+<span class="kw">import</span> express from <span class="str">"express"</span>;
+<span class="kw">const</span> app = express();
+
+<span class="cmt">// ... middleware and routes setup ...</span>
+
+<span class="cmt">// Only call listen() in local development</span>
+<span class="kw">if</span> (process.env.NODE_ENV !== <span class="str">"production"</span>) {
+  <span class="kw">const</span> PORT = process.env.PORT || <span class="val">3001</span>;
+  app.listen(PORT, () => console.log(<span class="str">`Server running on :${PORT}`</span>));
+}
+
+<span class="cmt">// Export app for Vercel serverless handler</span>
+<span class="kw">export default</span> app;</pre>
+
+  <h3>Supabase SQL — Enable pgvector</h3>
+<pre><span class="cmt">-- Run in Supabase SQL Editor → New Query</span>
+
+<span class="cmt">-- Enable vector extension</span>
+<span class="kw">CREATE EXTENSION IF NOT EXISTS</span> vector;
+
+<span class="cmt">-- Knowledge brain table with vector column</span>
+<span class="kw">CREATE TABLE</span> knowledge_brain (
+  id               UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  organization_id  UUID NOT NULL REFERENCES organizations(id),
+  section          TEXT NOT NULL,
+  content_md       TEXT NOT NULL,
+  embedding        vector(<span class="val">1536</span>),
+  source_type      TEXT,
+  last_updated     TIMESTAMPTZ DEFAULT now()
+);
+
+<span class="cmt">-- RLS: tenant isolation</span>
+<span class="kw">ALTER TABLE</span> knowledge_brain ENABLE ROW LEVEL SECURITY;
+<span class="kw">CREATE POLICY</span> <span class="str">"org_isolation"</span> ON knowledge_brain
+  FOR ALL USING (organization_id = auth.uid());
+
+<span class="cmt">-- Vector similarity index</span>
+<span class="kw">CREATE INDEX ON</span> knowledge_brain
+  USING ivfflat (embedding vector_cosine_ops)
+  WITH (lists = <span class="val">100</span>);</pre>
+</section>
+<hr class="divider">
+
+<!-- ═══ PRICING -->
+<section class="section" id="pricing">
+  <div class="section-tag">13 · SAAS PRICING MODEL</div>
+  <h2>Burn tokens,<br>not <em>headcount.</em></h2>
+  <p class="section-lead">Token-based pricing — the more loops run, the more value delivered. Organizations pay for AI work done, not seats. The LOOP/OS principle made operational.</p>
+
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <div class="pricing-tier">STARTER</div>
+      <div class="pricing-name">Assess</div>
+      <div class="pricing-price">€149</div>
+      <div class="pricing-per">/ month / organization</div>
+      <ul class="pricing-features">
+        <li>Assessment Loop only</li>
+        <li>Full clause 4–10 coverage</li>
+        <li>3 assessments per month</li>
+        <li>AI gap analysis + PDF report</li>
+        <li>100K tokens / month</li>
+        <li>Up to 5 users</li>
+        <li>Email support</li>
+      </ul>
+    </div>
+    <div class="pricing-card featured">
+      <div class="pricing-tier">PROFESSIONAL ★</div>
+      <div class="pricing-name">Improve</div>
+      <div class="pricing-price">€349</div>
+      <div class="pricing-per">/ month / organization</div>
+      <ul class="pricing-features">
+        <li>All 5 loops active</li>
+        <li>Unlimited assessments</li>
+        <li>CAPA AI + root cause</li>
+        <li>Evidence auto-classification</li>
+        <li>Management review drafts</li>
+        <li>Industry benchmarks</li>
+        <li>500K tokens / month</li>
+        <li>Up to 20 users</li>
+        <li>Priority support</li>
+      </ul>
+    </div>
+    <div class="pricing-card">
+      <div class="pricing-tier">ENTERPRISE</div>
+      <div class="pricing-name">Scale</div>
+      <div class="pricing-price">Custom</div>
+      <div class="pricing-per">/ year / multi-organization</div>
+      <ul class="pricing-features">
+        <li>Multi-org admin console</li>
+        <li>Consolidated reporting</li>
+        <li>Custom token budgets</li>
+        <li>White-label option</li>
+        <li>Dedicated knowledge loop</li>
+        <li>SLA + SSO + API access</li>
+        <li>Unlimited users</li>
+        <li>Dedicated support</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">TOKEN ECONOMY NOTE</div>
+    <p>Each AI loop run costs tokens. The Loop Health Dashboard surfaces token spend per loop, per period — making the AI work visible and justifiable to management. Token usage is the proof that loops are actually running and improving the QMS. The CFO sees tokens spent; the QM sees gaps closed. Both are satisfied.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div style="text-align:center;padding:80px 0 60px;border-top:1px solid var(--border);margin-top:80px">
+  <div style="font-family:var(--mono);font-size:9px;letter-spacing:5px;color:var(--text-mute);margin-bottom:20px">AUDITFLOW · PRD v2.0.0-ai · MAY 2026</div>
+  <div style="font-family:var(--serif);font-size:24px;color:var(--text-mute);font-style:italic;margin-bottom:8px">"If it was not recorded, it did not happen to the AI."</div>
+  <div style="font-family:var(--mono);font-size:10px;color:var(--text-mute);opacity:.4;margin-bottom:48px">Tom Blomfield · Y Combinator · 2026</div>
+  <div style="display:flex;justify-content:center;gap:32px;flex-wrap:wrap;font-family:var(--mono);font-size:10px;color:var(--text-mute);opacity:.6">
+    <span>github.com/stagsz/AuditFlow</span>
+    <span>fqnorsqggyshqfmihivw.supabase.co</span>
+    <span>vercel.com/stagszs-projects/audit-flow-backend</span>
+  </div>
+</div>
+
+</div><!-- /page -->
+</body>
+</html>

@@ -1,0 +1,79 @@
+# LOOP/OS · Engineering Self-Improvement Loop
+# "When a human comes the next day to ask the same query, it will now succeed."
+# — Tom Blomfield, YC
+
+name: eng-loop
+version: "1.0"
+model: claude-sonnet-4-20250514
+
+persona: |
+  You are the Engineering Improvement Agent for LOOP/OS.
+  You monitor all system failures, identify root causes,
+  write fixes, and deploy them overnight. You operate
+  autonomously within defined risk thresholds. When you
+  sleep, the codebase gets smarter. That is the goal.
+
+sensors:
+  - id: ci_failures
+    type: webhook
+    source: github_actions
+    events: [workflow_failed, test_failed, deployment_failed]
+
+  - id: error_logs
+    type: poll
+    source: log_aggregator
+    interval: 5m
+    filter: severity=error
+
+  - id: query_analytics
+    type: poll
+    source: db_analytics
+    interval: 1h
+    filter: "success_rate < 0.95"
+
+  - id: cross_loop_tasks
+    type: queue
+    source: meta-orchestrator
+    filter: target=eng-loop
+
+policy:
+  auto_deploy: true
+  auto_merge_threshold: "risk_score < 0.3"
+  nightly_batch: "02:00 UTC"
+  max_tokens_per_run: 50000
+  require_human_review:
+    - production_schema_changes
+    - security_related_changes
+    - dependency_major_upgrades
+    - "risk_score > 0.7"
+
+tools:
+  - github_api
+  - code_generation
+  - test_runner
+  - deploy_pipeline
+  - vector_search
+  - skills_file_rw
+
+quality_gate:
+  run_tests:
+    required: true
+    fail_action: abort
+  static_analysis:
+    required: true
+  diff_review_agent:
+    required: true
+  human_review:
+    trigger: "risk_score > 0.7"
+
+learning:
+  on_success:
+    - update_skills_file: true
+    - log_resolved_pattern: true
+  on_failure:
+    - log_failure_pattern: true
+    - increase_monitoring_window: 24h
+  weekly:
+    - distill_top_failures: true
+    - update_db_indexes: true
+    - report_to_orchestrator: true

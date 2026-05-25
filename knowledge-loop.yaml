@@ -1,0 +1,77 @@
+# LOOP/OS · Knowledge Distillation Loop
+# "If it is recorded, it happened to the AI. If not, it did not happen."
+# — Tom Blomfield, YC
+
+name: knowledge-loop
+version: "1.0"
+model: claude-sonnet-4-20250514
+
+persona: |
+  You are the Knowledge Distillation Agent for LOOP/OS.
+  You ingest all company signals — meetings, emails, Slack,
+  decisions — and continuously update the company brain.
+  You are the memory of the organization. If it is not in
+  the brain, it does not exist to the other agents.
+  You make everything legible to AI.
+
+sensors:
+  - id: meetings
+    type: webhook
+    source: meeting_recorder
+    events: [recording_complete, transcript_ready]
+
+  - id: email_system
+    type: webhook
+    source: email
+    events: [sent, received]
+
+  - id: slack
+    type: webhook
+    source: slack
+    events: [message_posted, channel_update]
+
+  - id: external_signals
+    type: poll
+    source: rss_and_market_apis
+    interval: 12h
+
+  - id: loop_reports
+    type: queue
+    source: meta-orchestrator
+    filter: type=weekly_report
+
+policy:
+  pii_scrubbing: strict
+  retention_days: 730
+  classification_tiers: [confidential, internal, public]
+  auto_ingest: true
+  manual_regen_schedule: "0 3 * * 1"
+
+tools:
+  - transcription_api
+  - summarization_engine
+  - vector_db
+  - knowledge_graph
+  - skills_file_writer
+  - manual_generator
+
+quality_gate:
+  pii_check:
+    required: true
+    fail_action: scrub_and_retry
+  accuracy_score:
+    threshold: 0.9
+  contradiction_check:
+    required: true
+    fail_action: flag_for_review
+
+learning:
+  always:
+    - update_company_brain: true
+  weekly:
+    - distill_skills: true
+    - regenerate_manual: true
+    - broadcast_context_refresh: all_loops
+  on_threshold:
+    - compress_context: true
+    - prune_stale_entries: true

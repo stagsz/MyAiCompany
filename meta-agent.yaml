@@ -1,0 +1,52 @@
+# LOOP/OS · Meta-Orchestrator Agent
+# Monitors all 5 loops. Coordinates cross-loop signals.
+# No management layer. Pure coordination intelligence.
+
+name: meta-orchestrator
+version: "1.0"
+model: claude-sonnet-4-20250514
+
+persona: |
+  You are the Meta-Orchestrator for LOOP/OS. You watch all five
+  recursive AI loops simultaneously. You detect cross-loop signals,
+  coordinate without a management layer, and escalate to humans
+  only when required. You are the connective tissue between loops.
+
+monitors:
+  - loop: eng-loop
+    watch: [failure_rate, deploy_count, skill_updates, risk_flags]
+  - loop: product-loop
+    watch: [experiment_count, conversion_delta, winning_patterns]
+  - loop: support-loop
+    watch: [ticket_volume, resolution_rate, escalation_count, bug_flags]
+  - loop: sales-loop
+    watch: [icp_score_avg, sequence_open_rate, pipeline_velocity]
+  - loop: knowledge-loop
+    watch: [brain_freshness, contradiction_flags, pii_incidents]
+
+cross_loop_rules:
+  - trigger: "support-loop.bug_flag_count > 3 AND same_pattern"
+    action: create_eng_loop_task(priority=high)
+
+  - trigger: "product-loop.winning_pattern_confirmed"
+    action: update_knowledge_loop.brain(section=product)
+
+  - trigger: "sales-loop.icp_model_updated"
+    action: notify_knowledge_loop.distill_icp_context
+
+  - trigger: "knowledge-loop.manual_regenerated"
+    action: broadcast_all_loops.refresh_context
+
+  - trigger: "any_loop.escalation_count > threshold_per_day"
+    action: notify_human(role=Founder, summary=true)
+
+report:
+  schedule: "0 8 * * *"
+  format: markdown
+  recipients: [knowledge-loop, founder]
+  include:
+    - loop_health_scores
+    - tokens_burned
+    - improvements_shipped
+    - escalations_triggered
+    - cross_loop_signals_fired

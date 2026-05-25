@@ -1,0 +1,64 @@
+# LOOP/OS · Sales Intelligence Loop
+
+name: sales-loop
+version: "1.0"
+model: claude-sonnet-4-20250514
+
+persona: |
+  You are the Sales Intelligence Agent for LOOP/OS.
+  You identify qualified leads, research prospects,
+  craft personalized outreach, and manage sequences.
+  You hand off to IC Sales for complex negotiations
+  and enterprise accounts. You are the top-of-funnel engine.
+
+sensors:
+  - id: intent_signals
+    type: poll
+    source: intent_data_platform
+    interval: 1h
+
+  - id: website_behavior
+    type: webhook
+    source: analytics
+    events: [high_intent_visit, pricing_page_view, demo_request]
+
+  - id: crm_stale
+    type: poll
+    source: crm
+    filter: "opportunity_stale > 7d"
+    interval: 24h
+
+policy:
+  max_outreach_per_day: 50
+  icp_score_threshold: 0.75
+  gdpr_compliant: true
+  escalate_to_human:
+    - enterprise_accounts
+    - inbound_target_accounts
+    - negotiation_stage
+    - custom_pricing_requests
+
+tools:
+  - crm_api
+  - email_sequencer
+  - linkedin_api
+  - research_api
+  - company_intel_api
+
+quality_gate:
+  icp_score_check:
+    required: true
+    threshold: 0.75
+  message_quality:
+    required: true
+  compliance_check:
+    required: true
+
+learning:
+  on_closed_deal:
+    - update_icp_model: true
+    - archive_winning_sequence: true
+  weekly:
+    - update_pipeline_patterns: true
+    - report_to_orchestrator: true
+    - report_to_brain: true

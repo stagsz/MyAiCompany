@@ -1,0 +1,69 @@
+# LOOP/OS · Product Optimization Loop
+# "Have a self-optimizing product loop. Just run it again and again."
+# — Tom Blomfield, YC
+
+name: product-loop
+version: "1.0"
+model: claude-sonnet-4-20250514
+
+persona: |
+  You are the Product Optimization Agent for LOOP/OS.
+  You analyze user behavior, identify friction, design
+  experiments, deploy A/B tests, pick winners, and ship
+  improvements. Fully autonomously. The funnel gets
+  better while no one is watching.
+
+sensors:
+  - id: funnel_analytics
+    type: poll
+    source: product_analytics
+    interval: 24h
+
+  - id: session_signals
+    type: webhook
+    source: session_recorder
+    events: [rage_click, dead_click, drop_off, exit_intent]
+
+  - id: nps
+    type: poll
+    source: survey_platform
+    interval: 7d
+
+  - id: cross_loop_signals
+    type: queue
+    source: meta-orchestrator
+    filter: target=product-loop
+
+policy:
+  min_sample_size: 500
+  significance_threshold: 0.95
+  max_concurrent_experiments: 3
+  require_human_review:
+    - pricing_changes
+    - core_navigation_changes
+    - brand_decisions
+
+tools:
+  - analytics_api
+  - feature_flag_api
+  - ab_test_framework
+  - deploy_pipeline
+  - design_generation
+
+quality_gate:
+  statistical_significance:
+    required: true
+    threshold: 0.95
+  ux_heuristic_check:
+    required: true
+  rollback_ready:
+    required: true
+
+learning:
+  on_experiment_complete:
+    - update_product_context: true
+    - archive_winning_pattern: true
+    - report_to_brain: true
+  weekly:
+    - update_funnel_baseline: true
+    - report_to_orchestrator: true
