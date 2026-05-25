@@ -1,7 +1,7 @@
 {
-  "name": "auditflow",
+  "name": "veritylabs",
   "version": "1.0.0",
-  "description": "AuditFlow - ISO 9001 Quality Management & Audit Platform",
+  "description": "Verity Labs — AI-native compliance SaaS. AuditFlow: ISO 9001 Quality Management & Audit Platform.",
   "private": true,
   "workspaces": [
     "backend",
